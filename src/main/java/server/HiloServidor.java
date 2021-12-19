@@ -29,7 +29,10 @@ public class HiloServidor implements Runnable {
 	private String action;
 	private boolean login;
 
+	private Thread h;
+
 	public HiloServidor(Socket cliente) {
+		this.h = new Thread(this);
 		this.cliente = cliente;
 		rutaCentral = "C:\\UNI";
 		rutaActual = rutaDefault;
@@ -46,7 +49,6 @@ public class HiloServidor implements Runnable {
 		}
 	}
 
-	@Override
 	public void run() {
 
 		try {
@@ -107,16 +109,14 @@ public class HiloServidor implements Runnable {
 
 	private void subirElemento(String nombre) {
 		File f = new File(rutaDefault + rutaActual + nombre);
-			try {
-				ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
-				out.writeObject(out);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		
-		
+		try {
+			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));
+			out.writeObject(out);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	private void bajarElemento(String nombre) {

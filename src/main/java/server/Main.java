@@ -21,7 +21,7 @@ public class Main {
 				cliente = new Socket();
 				cliente = server.accept();
 				
-				hiloServ = new Thread(new HiloServidor(cliente));
+				hiloServ = new Thread(new HiloServer(cliente));
 				hiloServ.start();
 			}
 		}catch (IOException e) {
