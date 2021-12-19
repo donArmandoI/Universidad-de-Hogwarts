@@ -16,11 +16,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import common.TextES;
+
 /**
  * @author Natalia
  *
  */
 public class JdialogLeerCorreo extends JDialog{
+	TextES spanish = new TextES();
 	JPanel emailreadJpanelHeadlines = new JPanel(new GridLayout(0,1));
 	JPanel emailreadJpanelSubject = new JPanel();
 	JPanel emailreadJpanelUser = new JPanel();
@@ -31,7 +34,6 @@ public class JdialogLeerCorreo extends JDialog{
 	JTextField emailreadJtextfieldSubject;
 	JTextField emailreadJtextfieldUser;
 	JTextArea emailreadJtextareaText;
-	JButton emailreadJButtonSend;
 	JButton emailreadJbuttonCancel;
 
 	public JdialogLeerCorreo() {
@@ -41,8 +43,8 @@ public class JdialogLeerCorreo extends JDialog{
 
 	private void crearItems() {
 		// TODO Auto-generated method stub
-		emailreadJlabelSubject = new JLabel("Asunto");
-		emailreadJlabelUser = new JLabel(" De ");
+		emailreadJlabelSubject = new JLabel(spanish.getEmailStringSubject());
+		emailreadJlabelUser = new JLabel(spanish.getEmailStringDe());
 		
 		emailreadJtextfieldSubject = new JTextField(50);
 		emailreadJtextfieldUser = new JTextField(52);
@@ -50,8 +52,7 @@ public class JdialogLeerCorreo extends JDialog{
 		emailreadJtextareaText = new JTextArea(30,70);
 		emailreadJtextareaText.setBounds(100,80,20,20);
 		
-		emailreadJButtonSend = new JButton("Enviar");
-		emailreadJbuttonCancel = new JButton("Cancelar");
+		emailreadJbuttonCancel = new JButton(spanish.getEmailStringCancelar());
 		
 		emailreadJpanelSubject.add(emailreadJlabelSubject);
 		emailreadJpanelSubject.add(emailreadJtextfieldSubject);
@@ -62,8 +63,7 @@ public class JdialogLeerCorreo extends JDialog{
 		emailreadJpanelHeadlines.add(emailreadJpanelUser);
 		
 		emailreadJpanelText.add(emailreadJtextareaText);
-		
-		emailreadJpanelButtons.add(emailreadJButtonSend);
+
 		emailreadJpanelButtons.add(emailreadJbuttonCancel);
 		
 	}
@@ -79,4 +79,63 @@ public class JdialogLeerCorreo extends JDialog{
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
+
+	/**
+	 * @return the emailreadJtextfieldSubject
+	 */
+	public JTextField getEmailreadJtextfieldSubject() {
+		return emailreadJtextfieldSubject;
+	}
+
+	/**
+	 * @return the emailreadJtextfieldUser
+	 */
+	public JTextField getEmailreadJtextfieldUser() {
+		return emailreadJtextfieldUser;
+	}
+
+	/**
+	 * @return the emailreadJtextareaText
+	 */
+	public JTextArea getEmailreadJtextareaText() {
+		return emailreadJtextareaText;
+	}
+
+
+	/**
+	 * @return the emailreadJbuttonCancel
+	 */
+	public JButton getEmailreadJbuttonCancel() {
+		return emailreadJbuttonCancel;
+	}
+
+	/**
+	 * @param emailreadJtextfieldSubject the emailreadJtextfieldSubject to set
+	 */
+	public void setEmailreadJtextfieldSubject(JTextField emailreadJtextfieldSubject) {
+		this.emailreadJtextfieldSubject = emailreadJtextfieldSubject;
+	}
+
+	/**
+	 * @param emailreadJtextfieldUser the emailreadJtextfieldUser to set
+	 */
+	public void setEmailreadJtextfieldUser(JTextField emailreadJtextfieldUser) {
+		this.emailreadJtextfieldUser = emailreadJtextfieldUser;
+	}
+
+	/**
+	 * @param emailreadJtextareaText the emailreadJtextareaText to set
+	 */
+	public void setEmailreadJtextareaText(JTextArea emailreadJtextareaText) {
+		this.emailreadJtextareaText = emailreadJtextareaText;
+	}
+
+	/**
+	 * @param emailreadJbuttonCancel the emailreadJbuttonCancel to set
+	 */
+	public void setEmailreadJbuttonCancel(JButton emailreadJbuttonCancel) {
+		this.emailreadJbuttonCancel = emailreadJbuttonCancel;
+	}
+	
+	
 }

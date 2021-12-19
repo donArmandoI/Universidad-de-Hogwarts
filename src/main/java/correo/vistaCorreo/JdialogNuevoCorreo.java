@@ -17,11 +17,14 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import common.TextES;
+
 /**
  * @author Natalia
  *
  */
 public class JdialogNuevoCorreo extends JDialog{
+	TextES spanish = new TextES();
 	JPanel emailcreateJpanelHeadlines = new JPanel(new GridLayout(0,1));
 	JPanel emailcreateJpanelSubject = new JPanel();
 	JPanel emailcreateJpanelUser = new JPanel();
@@ -42,8 +45,8 @@ public class JdialogNuevoCorreo extends JDialog{
 
 	private void crearItems() {
 		// TODO Auto-generated method stub
-		emailcreateJlabelSubject = new JLabel("Asunto");
-		emailcreateJlabelUser = new JLabel("Para");
+		emailcreateJlabelSubject = new JLabel(spanish.getEmailStringSubject());
+		emailcreateJlabelUser = new JLabel(spanish.getEmailStringPara());
 		
 		emailcreateJtextfieldSubject = new JTextField(50);
 		emailcreateJtextfieldUser = new JTextField(51);
@@ -51,8 +54,8 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJtextareaText = new JTextArea(30,70);
 		emailcreateJtextareaText.setBounds(100,80,20,20);
 		
-		emailcreateJButtonSend = new JButton("Enviar");
-		emailcreateJbuttonCancel = new JButton("Cancelar");
+		emailcreateJButtonSend = new JButton(spanish.getEmailStringEnviar());
+		emailcreateJbuttonCancel = new JButton(spanish.getEmailStringCancelar());
 		
 		emailcreateJpanelSubject.add(emailcreateJlabelSubject);
 		emailcreateJpanelSubject.add(emailcreateJtextfieldSubject);
@@ -61,6 +64,7 @@ public class JdialogNuevoCorreo extends JDialog{
 		
 		emailcreateJpanelHeadlines.add(emailcreateJpanelSubject);
 		emailcreateJpanelHeadlines.add(emailcreateJpanelUser);
+		emailcreateJpanelHeadlines.setBackground(new Color(255, 253, 150));
 		
 		emailcreateJpanelText.add(emailcreateJtextareaText);
 		
@@ -79,6 +83,90 @@ public class JdialogNuevoCorreo extends JDialog{
 		this.getContentPane().setBackground(new Color(255, 253, 150));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	}
+
+	/**
+	 * @return the emailcreateJpanelHeadlines
+	 */
+	public JPanel getEmailcreateJpanelHeadlines() {
+		return emailcreateJpanelHeadlines;
+	}
+
+	/**
+	 * @return the emailcreateJpanelSubject
+	 */
+	public JPanel getEmailcreateJpanelSubject() {
+		return emailcreateJpanelSubject;
+	}
+
+	/**
+	 * @return the emailcreateJpanelUser
+	 */
+	public JPanel getEmailcreateJpanelUser() {
+		return emailcreateJpanelUser;
+	}
+
+	/**
+	 * @return the emailcreateJpanelText
+	 */
+	public JPanel getEmailcreateJpanelText() {
+		return emailcreateJpanelText;
+	}
+
+	/**
+	 * @return the emailcreateJpanelButtons
+	 */
+	public JPanel getEmailcreateJpanelButtons() {
+		return emailcreateJpanelButtons;
+	}
+
+	/**
+	 * @return the emailcreateJlabelSubject
+	 */
+	public JLabel getEmailcreateJlabelSubject() {
+		return emailcreateJlabelSubject;
+	}
+
+	/**
+	 * @return the emailcreateJlabelUser
+	 */
+	public JLabel getEmailcreateJlabelUser() {
+		return emailcreateJlabelUser;
+	}
+
+	/**
+	 * @return the emailcreateJtextfieldSubject
+	 */
+	public JTextField getEmailcreateJtextfieldSubject() {
+		return emailcreateJtextfieldSubject;
+	}
+
+	/**
+	 * @return the emailcreateJtextfieldUser
+	 */
+	public JTextField getEmailcreateJtextfieldUser() {
+		return emailcreateJtextfieldUser;
+	}
+
+	/**
+	 * @return the emailcreateJtextareaText
+	 */
+	public JTextArea getEmailcreateJtextareaText() {
+		return emailcreateJtextareaText;
+	}
+
+	/**
+	 * @return the emailcreateJButtonSend
+	 */
+	public JButton getEmailcreateJButtonSend() {
+		return emailcreateJButtonSend;
+	}
+
+	/**
+	 * @return the emailcreateJbuttonCancel
+	 */
+	public JButton getEmailcreateJbuttonCancel() {
+		return emailcreateJbuttonCancel;
 	}
 	
 	

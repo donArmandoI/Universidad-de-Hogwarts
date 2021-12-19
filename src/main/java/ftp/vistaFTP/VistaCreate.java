@@ -11,13 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import common.TextES;
+
 /**
  * @author Natalia
  *
  */
 public class VistaCreate extends JFrame{
+	TextES spanish = new TextES();
 	JTextField createJtextfieldName = new JTextField(15);
-	JButton createJbuttonConfirm = new JButton("Confirmar");
+	JButton createJbuttonConfirm = new JButton(spanish.getFtpcreateStringConfirm());
 	
 	public VistaCreate() {
 		propiedades();
@@ -28,7 +31,6 @@ public class VistaCreate extends JFrame{
 		add(createJtextfieldName);
 		add(createJbuttonConfirm);
 		this.setLayout(new FlowLayout());
-		this.setTitle("Crear");
 		getContentPane().setBackground(new Color(255, 253, 150));
 		this.setSize(new Dimension(320, 100));
 		this.setResizable(false);
@@ -41,5 +43,13 @@ public class VistaCreate extends JFrame{
 	public JTextField getCreateJtextfieldName() {
 		return createJtextfieldName;
 	}
+
+	/**
+	 * @return the createJbuttonConfirm
+	 */
+	public JButton getCreateJbuttonConfirm() {
+		return createJbuttonConfirm;
+	}
+
 	
 }

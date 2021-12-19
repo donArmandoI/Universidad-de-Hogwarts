@@ -18,16 +18,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import common.TextES;
+
 
 /**
  * @author Natalia
  *
  */
 public class VistaFTP extends JPanel {
+	TextES spanish = new TextES();
 	JPanel ftpJpanelHeadline = new JPanel();
 	JPanel ftpJpanelButtons = new JPanel();
 	JPanel ftpJpanelContentFicheros = new JPanel();
-	//ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<>();
+	ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<JpanelFichero>();
 
 	JList<Object> ftpJlistFilename;
 	JScrollPane scroll;
@@ -65,11 +68,11 @@ public class VistaFTP extends JPanel {
 		ftpJpanelHeadline.add(ftpJtextfieldURL);
 		ftpJpanelHeadline.add(ftpJbuttonReturn);
 
-		ftpJbuttonUpload = new JButton("Subir");
-		ftpJbuttonDownload = new JButton("Bajar");
-		ftpJbuttonRename = new JButton("Renombrar");
-		ftpJbuttonCreate = new JButton("Crear");
-		ftpJbuttonDelete = new JButton("Eliminar");
+		ftpJbuttonUpload = new JButton(spanish.getFtpStringSubir());
+		ftpJbuttonDownload = new JButton(spanish.getFtpStringBajar());
+		ftpJbuttonRename = new JButton(spanish.getFtpStringRenombrar());
+		ftpJbuttonCreate = new JButton(spanish.getFtpStringCrear());
+		ftpJbuttonDelete = new JButton(spanish.getFtpStringEliminar());
 
 		ftpJpanelButtons.add(ftpJbuttonUpload);
 		ftpJpanelButtons.add(ftpJbuttonDownload);
@@ -106,12 +109,12 @@ public class VistaFTP extends JPanel {
 		return ftpJpanelContentFicheros;
 	}
 
-/*	/**
+	/**
 	 * @return the ftpArrayListFicheros
 	 */
-	/*public ArrayList<JpanelFichero> getFtpArrayListFicheros() {
+	public ArrayList<JpanelFichero> getFtpArrayListFicheros() {
 		return ftpArrayListFicheros;
-	}*/
+	}
 
 	/**
 	 * @return the scroll
