@@ -27,7 +27,7 @@ public class VistaFTP extends JPanel {
 	JPanel ftpJpanelHeadline = new JPanel();
 	JPanel ftpJpanelButtons = new JPanel();
 	JPanel ftpJpanelContentFicheros = new JPanel();
-	ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<>();
+	//ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<>();
 
 	JList<Object> ftpJlistFilename;
 	JScrollPane scroll;
@@ -106,12 +106,12 @@ public class VistaFTP extends JPanel {
 		return ftpJpanelContentFicheros;
 	}
 
-	/**
+/*	/**
 	 * @return the ftpArrayListFicheros
 	 */
-	public ArrayList<JpanelFichero> getFtpArrayListFicheros() {
+	/*public ArrayList<JpanelFichero> getFtpArrayListFicheros() {
 		return ftpArrayListFicheros;
-	}
+	}*/
 
 	/**
 	 * @return the scroll
