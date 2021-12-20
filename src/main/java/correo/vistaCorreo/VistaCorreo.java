@@ -5,40 +5,33 @@ package correo.vistaCorreo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+
+import common.TextES;
 
 /**
  * @author Natalia
  *
  */
 public class VistaCorreo extends JPanel{
-	JdialogNuevoCorreo correo = new JdialogNuevoCorreo();
-	JPanel emailJpanelHeadline = new JPanel();
-	JList<Object> emailJlistHeadlist;
-	JButton emailJbuttonCreate;
+	TextES spanish = new TextES();
+	JList<Object> emailJlistHeadlist = new JList<Object>();
+	JButton emailJbuttonCreate = new JButton(spanish.getEmailStringNuevoCorreo());
 	
-	
-	public VistaCorreo(ArrayList<String> message) {
-		crearItems(message);
+	public VistaCorreo() {
 		propiedades();
 	}
 
-	private void crearItems(ArrayList<String> message) {
-		// TODO Auto-generated method stub
-		emailJlistHeadlist = new JList<Object>(message.toArray());
-		emailJbuttonCreate = new JButton("Escribir nuevo correo");
-		
-		//emailJdialogContent.add(correo);
+	public void addItemsJlist(DefaultListModel modelo) {
+		emailJlistHeadlist.setModel(modelo);
 	}
 
 	private void propiedades() {
@@ -50,8 +43,21 @@ public class VistaCorreo extends JPanel{
 		
 		emailJlistHeadlist.setBackground(new Color(255, 253, 150));
 		emailJlistHeadlist.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.white));
-
-		this.setSize(new Dimension(820, 500));
 	}
+
+	/**
+	 * @return the emailJlistHeadlist
+	 */
+	public JList<Object> getEmailJlistHeadlist() {
+		return emailJlistHeadlist;
+	}
+
+	/**
+	 * @return the emailJbuttonCreate
+	 */
+	public JButton getEmailJbuttonCreate() {
+		return emailJbuttonCreate;
+	}
+	
 
 }

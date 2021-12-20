@@ -2,10 +2,14 @@ package correo;
 
 import java.util.Properties;
 
+import javax.mail.Address;
+import javax.mail.Folder;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.swing.DefaultListModel;
 
 import common.TextES;
 import correo.vistaCorreo.VistaCorreo;
@@ -22,9 +26,23 @@ public class ControllerMail {
 	private void readMails(Properties props) {
 		// TODO Auto-generated method stub
 		Session session = Session.getDefaultInstance(props);
+		Store store;
+		Folder inbox;
+		Message[] messages;
+		String[] headers;
+		DefaultListModel<String> headerList;
+		
 		try {
-			Store store = session.getStore();
+			store = session.getStore();
 			store.connect(TextES.getControllerMailInboundUserName(), TextES.getControllerMailInboundPassword());
+			inbox = store.getFolder(TextES.getControllerMailInboundTargetFolder());
+			inbox.open(Folder.READ_ONLY);
+			messages = inbox.getMessages();
+			headerList = new DefaultListModel<String>();
+			for (int i = 0; i < messages.length; i++) {
+				headerList.addElement(extractHeader(messages[i]));
+			}
+			mailView.
 		} catch (NoSuchProviderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -32,6 +50,29 @@ public class ControllerMail {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private String extractHeader(Message message) {
+		// TODO Auto-generated method stub
+		StringBuilder header = new StringBuilder(166);
+		StringBuilder sender = new StringBuilder(50);
+		StringBuilder subject = new StringBuilder(100);
+		StringBuilder date = new StringBuilder(16);
+		Address[] senders;
+		try {
+			senders = message.getAllRecipients();
+			for (int i = 0; i < senders.length; i++) {
+				sender.append(senders[i].toString());
+			}		
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		header.append(sender);
+		header.append(subject);
+		header.append(date);
+		return header.toString();
 	}
 
 	private Properties prepareConnectionProperties() {

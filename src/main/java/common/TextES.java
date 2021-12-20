@@ -9,6 +9,7 @@ public final class TextES {
 
 	private static String main_menu_login;
 	
+	private static String controllerMailInboundTargetFolder;
 	private static String controllerMailInboundHost;
 	private static String controllerMailInboundPassword;
 	private static String controllerMailInboundPort;
@@ -22,6 +23,7 @@ public final class TextES {
 	public TextES() {
 		main_menu_login = "Iniciar Sesión";
 		
+		controllerMailInboundTargetFolder = "INBOX";
 		controllerMailInboundHost = "pop.gmail.com";
 		controllerMailInboundPassword = "*****";
 		controllerMailInboundPort = "995";
@@ -122,6 +124,11 @@ public final class TextES {
 
 	public static void setControllerMailInboundUserName(String controllerMailInboundUserName) {
 		TextES.controllerMailInboundUserName = controllerMailInboundUserName;
+	}
+
+
+	public static String getControllerMailInboundTargetFolder() {
+		return controllerMailInboundTargetFolder;
 	}
 
 	
