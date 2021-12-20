@@ -21,6 +21,16 @@ public class ControllerMail {
 		mailView = view;
 		Properties props = prepareConnectionProperties();
 		readMails(props);
+		// Acceder al correo y leer los mensajes de la carpeta de recibidos - Listo
+		// Agregar cada correo como un item - Listo
+		// Agregarle el evento a cada encabezado
+		// Cuando se pulse en un encabezado, se extrae el número de mensaje, se busca
+			// el mensaje con ese número y se lanza la vista del visor con ese mensaje
+		// Listener botón crear
+		// Listener botón nuevo -> enviar
+		// Hilo de sincronía
+		// Tubería para la sincronía
+			
 	}
 
 	private void readMails(Properties props) {
@@ -29,7 +39,6 @@ public class ControllerMail {
 		Store store;
 		Folder inbox;
 		Message[] messages;
-		String[] headers;
 		DefaultListModel<String> headerList;
 		
 		try {
@@ -42,7 +51,7 @@ public class ControllerMail {
 			for (int i = 0; i < messages.length; i++) {
 				headerList.addElement(extractHeader(messages[i]));
 			}
-			mailView.
+			mailView.addItemsJlist(headerList);
 		} catch (NoSuchProviderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,6 +72,7 @@ public class ControllerMail {
 			senders = message.getAllRecipients();
 			for (int i = 0; i < senders.length; i++) {
 				sender.append(senders[i].toString());
+				
 			}		
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
@@ -85,14 +95,5 @@ public class ControllerMail {
 		props.setProperty("mail.pop3.socketFactory.port", TextES.getControllerMailInboundSocketFactoryPort());
 		return props;
 	}
-	// Acceder al correo y leer los mensajes de la carpeta de recibidos
-	// Agregar cada correo como un item
-	// Agregarle el evento a cada encabezado
-	// Cuando se pulse en un encabezado, se extrae el número de mensaje, se busca
-		// el mensaje con ese número y se lanza la vista del visor con ese mensaje
-	// Listener botón crear
-	// Listener botón nuevo -> enviar
-	// Hilo de sincronía
-	// Tubería para la sincronía
-		
+	
 }
