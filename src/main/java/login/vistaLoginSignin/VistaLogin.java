@@ -57,7 +57,7 @@ public class VistaLogin extends JFrame {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		JpanelImagen fondo = new JpanelImagen("/imagenLogin/Hogwarts-logo-1.png");
+		JpanelImagen fondo = new JpanelImagen("/login/imagenLogin/Hogwarts-logo-1.png");
 		add(fondo);
 		verti.add(loginJPanelUsername);
 		verti.add(loginJPanelPassword);

@@ -1,10 +1,6 @@
 package common;
 
-import java.io.IOException;
-import java.net.Socket;
-
 import login.vistaLoginSignin.VistaLogin;
-import login.vistaLoginSignin.VistaSignin;
 
 public class Main {
 
