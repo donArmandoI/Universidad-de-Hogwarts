@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 
 import common.TextES;
 import correo.vistaCorreo.VistaCorreo;
+import correo.vistaCorreo.Header;
 
 public class ControllerMail {
 	VistaCorreo mailView;
@@ -21,6 +22,9 @@ public class ControllerMail {
 		mailView = view;
 		Properties props = prepareConnectionProperties();
 		readMails(props);
+		System.out.println("Activando vista");
+		mailView.setVisible(true);
+		System.out.println("Fin");
 		// Acceder al correo y leer los mensajes de la carpeta de recibidos - Listo
 		// Agregar cada correo como un item - Listo
 		// Agregarle el evento a cada encabezado
@@ -39,7 +43,7 @@ public class ControllerMail {
 		Store store;
 		Folder inbox;
 		Message[] messages;
-		DefaultListModel<String> headerList;
+		DefaultListModel<Header> headerList;
 		
 		try {
 			store = session.getStore();
@@ -47,9 +51,9 @@ public class ControllerMail {
 			inbox = store.getFolder(TextES.getControllerMailInboundTargetFolder());
 			inbox.open(Folder.READ_ONLY);
 			messages = inbox.getMessages();
-			headerList = new DefaultListModel<String>();
+			headerList = new DefaultListModel<Header>();
 			for (int i = 0; i < messages.length; i++) {
-				headerList.addElement(extractHeader(messages[i]));
+				headerList.addElement(new Header(messages[i].getSubject(), messages[i].getSubject(), (messages[i].getReceivedDate().toString())));
 			}
 			mailView.addItemsJlist(headerList);
 		} catch (NoSuchProviderException e) {
@@ -88,6 +92,8 @@ public class ControllerMail {
 	private Properties prepareConnectionProperties() {
 		// TODO Auto-generated method stub
 		Properties props = new Properties();
+		props.setProperty("mail.store.protocol", "pop3");
+		props.setProperty("mail.pop3.starttls.enable", "true");
 		props.setProperty("mail.pop3.host", TextES.getControllerMailInboundHost());
 		props.setProperty("mail.pop3.port", TextES.getControllerMailInboundPort());
 		props.setProperty("mail.pop3.socketFactory.class", TextES.getControllerMailInboundSSLSocketFactoryClass());

@@ -12,13 +12,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
+import common.TextES;
+
 /**
  * @author Natalia
  *
  */
 public class VistaRename extends JFrame{
+	TextES spanish = new TextES();
 	JTextField renameJtextfieldName = new JTextField(15);
-	JButton renameJbuttonConfirm = new JButton("Confirmar");
+	JButton renameJbuttonConfirm = new JButton(spanish.getFtpcreateStringConfirm());
 	
 	public VistaRename() {
 		propiedades();
@@ -29,7 +32,6 @@ public class VistaRename extends JFrame{
 		add(renameJtextfieldName);
 		add(renameJbuttonConfirm);
 		this.setLayout(new FlowLayout());
-		this.setTitle("Renombrar");
 		getContentPane().setBackground(new Color(255, 253, 150));
 		this.setSize(new Dimension(320, 100));
 		this.setResizable(false);

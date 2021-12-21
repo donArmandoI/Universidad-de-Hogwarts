@@ -31,9 +31,9 @@ public class VistaPrincipal extends JFrame {
 	private void crearItems() {
 		// TODO Auto-generated method stub
 		mainJmenubarMenuBar = new JMenuBar();
-		mainJmenuFTP = new JMenu(spanish.getMainStringFTP());
-		mainJmenuEmail = new JMenu(spanish.getMainStringCorreo());
-		mainJmenuDisconnect = new JMenu(spanish.getMainStringDisconnect());
+		//mainJmenuFTP = new JMenu(spanish.getMainStringFTP());
+		//mainJmenuEmail = new JMenu(spanish.getMainStringCorreo());
+		//mainJmenuDisconnect = new JMenu(spanish.getMainStringDisconnect());
 		mainJmenubarMenuBar.add(mainJmenuFTP);
 		mainJmenubarMenuBar.add(mainJmenuEmail);
 		mainJmenubarMenuBar.add(mainJmenuDisconnect);
@@ -41,7 +41,7 @@ public class VistaPrincipal extends JFrame {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		this.setTitle(spanish.getMainStringTitle());
+		//this.setTitle(spanish.getMainStringTitle());
 		this.setSize(new Dimension(860, 680));
 		this.setLayout(new BorderLayout());
 

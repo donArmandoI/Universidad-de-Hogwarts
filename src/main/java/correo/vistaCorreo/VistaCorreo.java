@@ -5,15 +5,12 @@ package correo.vistaCorreo;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.JPanel;
 
 import common.TextES;
 
@@ -21,16 +18,16 @@ import common.TextES;
  * @author Natalia
  *
  */
-public class VistaCorreo extends JPanel{
+public class VistaCorreo extends JFrame{
 	TextES spanish = new TextES();
-	JList<Object> emailJlistHeadlist = new JList<Object>();
-	JButton emailJbuttonCreate = new JButton(spanish.getEmailStringNuevoCorreo());
+	JList<Header> emailJlistHeadlist = new JList<Header>();
+	JButton emailJbuttonCreate = new JButton(TextES.getEmailStringNuevoCorreo());
 	
 	public VistaCorreo() {
 		propiedades();
 	}
 
-	public void addItemsJlist(DefaultListModel modelo) {
+	public void addItemsJlist(DefaultListModel<Header> modelo) {
 		emailJlistHeadlist.setModel(modelo);
 	}
 
@@ -48,7 +45,7 @@ public class VistaCorreo extends JPanel{
 	/**
 	 * @return the emailJlistHeadlist
 	 */
-	public JList<Object> getEmailJlistHeadlist() {
+	public JList<Header> getEmailJlistHeadlist() {
 		return emailJlistHeadlist;
 	}
 

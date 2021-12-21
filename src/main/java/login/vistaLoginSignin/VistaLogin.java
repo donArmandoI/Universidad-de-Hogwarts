@@ -14,7 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import common.TextEN;
 import common.TextES;
 
 /**
@@ -23,7 +22,6 @@ import common.TextES;
  */
 public class VistaLogin extends JFrame {
 	TextES spanish = new TextES();
-	TextEN english = new TextEN();
 	
 	Box verti = Box.createVerticalBox();
 	JPanel loginJPanelUsername = new JPanel();
@@ -47,7 +45,7 @@ public class VistaLogin extends JFrame {
 
 	private void crearLogin() {
 		// TODO Auto-generated method stub
-		loginJlabelUsername = new JLabel(spanish.getSigninStringUserName());
+		/*loginJlabelUsername = new JLabel(spanish.getSigninStringUserName());
 		loginJtextfieldUsername = new JTextField(15);
 		loginJlabelPassword = new JLabel(spanish.getSigninStringPassword());
 		loginJPasswordfieldPassword = new JPasswordField(15);
@@ -63,7 +61,7 @@ public class VistaLogin extends JFrame {
 		loginJbuttonSignin = new JButton(spanish.getSigninStringSignin());
 		
 		loginJPanelSignin.add(loginJlabelSignin);
-		loginJPanelSignin.add(loginJbuttonSignin);
+		loginJPanelSignin.add(loginJbuttonSignin);*/
 	}
 
 
