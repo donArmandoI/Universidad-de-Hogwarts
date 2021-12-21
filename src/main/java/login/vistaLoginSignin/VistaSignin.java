@@ -13,7 +13,6 @@ import java.awt.Insets;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
-import common.TextEN;
 import common.TextES;
 
 /**
@@ -22,7 +21,6 @@ import common.TextES;
  */
 public class VistaSignin extends JFrame {
 	TextES spanish = new TextES();
-	TextEN english = new TextEN();
 	
 	JPanel signinJPanelLabel = new JPanel();
 	JPanel signinJPanelTextfield = new JPanel();

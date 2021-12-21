@@ -7,27 +7,26 @@ import java.net.Socket;
 public class Main {
 
 	public static void main(String[] args) {
-		
+
 		ServerSocket server;
 		Socket cliente;
 		int puerto = 6000;
 		Thread hiloServ;
-		
+
 		try {
 			server = new ServerSocket(puerto);
 			System.out.println("Servidor iniciado...");
-			
-			while(true) {
+
+			while (true) {
 				cliente = new Socket();
 				cliente = server.accept();
-				
+
 				hiloServ = new Thread(new HiloServer(cliente));
 				hiloServ.start();
 			}
-		}catch (IOException e) {
-			// TODO: handle exception
+		} catch (IOException e) {
 		}
-		
+
 	}
 
 }

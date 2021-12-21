@@ -1,48 +1,33 @@
 package common;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import login.vistaLoginSignin.VistaLogin;
+import login.vistaLoginSignin.VistaSignin;
 
 public class Main {
 
 	public static void main(String[] args) {
 
-		iniciarCliente();
-	}
+		VistaLogin login = new VistaLogin();
+		// signin = new VistaSignin();
+		login.setVisible(true);
+		// signin.setVisible(false);
 
-	private static void iniciarCliente() {
-
-		DataOutputStream dataOut;
-		DataInputStream dataIn;
-
-		ObjectOutputStream objectOut;
-		ObjectInputStream objectIn;
-
-		Socket cli;
-
-		Usuario user;
-
+		/*
 		try {
-			cli = new Socket("localhost", 6000);
+			Socket cli = new Socket("localhost", 6000);
 
-			dataOut = new DataOutputStream(cli.getOutputStream());
-			dataIn = new DataInputStream(cli.getInputStream());
+			login.getLoginJbuttonLogin().addActionListener(new EventAction("Log in", 0, login, signin, cli));
+			login.getLoginJbuttonSignin().addActionListener(new EventAction("Sign in", 0, login, signin, cli));
 
-			objectOut = new ObjectOutputStream(cli.getOutputStream());
-			objectIn = new ObjectInputStream(cli.getInputStream());
-
-			user = new Usuario("alumnoPrueba", "Alumno", "De Prueba", false, "alumno@prueba.com", "A123456a",
-					"\\alumnos\\alumnoPrueba\\");
-			
-			
+			signin.getSigninJbuttonSignin().addActionListener(new EventAction("Sign in", 1, login, signin, cli));
+			signin.getSigninJbuttonLogin().addActionListener(new EventAction("Log in", 1, login, signin, cli));
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
-
 }

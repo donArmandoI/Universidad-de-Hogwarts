@@ -6,7 +6,6 @@ package login.vistaLoginSignin;
 import java.awt.*;
 import javax.swing.*;
 
-import common.TextEN;
 import common.TextES;
 
 /**
@@ -15,22 +14,21 @@ import common.TextES;
  */
 public class VistaLogin extends JFrame {
 	TextES spanish = new TextES();
-	
+
 	Box verti = Box.createVerticalBox();
 	JPanel loginJPanelUsername = new JPanel();
 	JPanel loginJPanelPassword = new JPanel();
 	JPanel loginJPanelLogin = new JPanel();
 	JPanel loginJPanelSignin = new JPanel();
-	
-	
+
 	JLabel loginJlabelUsername;
 	JTextField loginJtextfieldUsername;
 	JLabel loginJlabelPassword;
 	JPasswordField loginJPasswordfieldPassword;
 	JButton loginJbuttonLogin;
 	JLabel loginJlabelSignin;
-	JButton loginJbuttonSignin ;
-	
+	JButton loginJbuttonSignin;
+
 	public VistaLogin() {
 		crearLogin();
 		propiedades();
@@ -38,25 +36,24 @@ public class VistaLogin extends JFrame {
 
 	private void crearLogin() {
 		// TODO Auto-generated method stub
-		loginJlabelUsername = new JLabel(spanish.getSigninStringUserName());
+		loginJlabelUsername = new JLabel("USERNAME");
 		loginJtextfieldUsername = new JTextField(30);
-		loginJlabelPassword = new JLabel(spanish.getSigninStringPassword());
+		loginJlabelPassword = new JLabel("PASSWORD");
 		loginJPasswordfieldPassword = new JPasswordField(30);
-		loginJbuttonLogin = new JButton(spanish.getSigninStringLogin());
-		
+		loginJbuttonLogin = new JButton("Log in");
+
 		loginJPanelUsername.add(loginJlabelUsername);
 		loginJPanelUsername.add(loginJtextfieldUsername);
 		loginJPanelPassword.add(loginJlabelPassword);
 		loginJPanelPassword.add(loginJPasswordfieldPassword);
 		loginJPanelLogin.add(loginJbuttonLogin);
-		
-		loginJlabelSignin = new JLabel(spanish.getLoginStringInfo());
-		loginJbuttonSignin = new JButton(spanish.getSigninStringSignin());
-		
+
+		loginJlabelSignin = new JLabel("Sign in");
+		loginJbuttonSignin = new JButton("Sign in");
+
 		loginJPanelSignin.add(loginJlabelSignin);
 		loginJPanelSignin.add(loginJbuttonSignin);
 	}
-
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
@@ -68,8 +65,8 @@ public class VistaLogin extends JFrame {
 		verti.add(loginJPanelSignin);
 		add(verti);
 		this.setTitle("Login");
-		this.setSize(new Dimension(360,480));
-		this.setLayout(new GridLayout(0,1));
+		this.setSize(new Dimension(360, 480));
+		this.setLayout(new GridLayout(0, 1));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
@@ -185,5 +182,5 @@ public class VistaLogin extends JFrame {
 	public void setLoginJbuttonSignin(JButton loginJbuttonSignin) {
 		this.loginJbuttonSignin = loginJbuttonSignin;
 	}
-	
+
 }
