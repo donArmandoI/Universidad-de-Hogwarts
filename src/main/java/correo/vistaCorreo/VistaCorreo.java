@@ -19,15 +19,14 @@ import common.TextES;
  *
  */
 public class VistaCorreo extends JFrame{
-	TextES spanish = new TextES();
-	JList<Header> emailJlistHeadlist = new JList<Header>();
+	JList<String> emailJlistHeadlist = new JList<String>();
 	JButton emailJbuttonCreate = new JButton(TextES.getEmailStringNuevoCorreo());
 	
 	public VistaCorreo() {
 		propiedades();
 	}
 
-	public void addItemsJlist(DefaultListModel<Header> modelo) {
+	public void addItemsJlist(DefaultListModel<String> modelo) {
 		emailJlistHeadlist.setModel(modelo);
 	}
 
@@ -45,7 +44,7 @@ public class VistaCorreo extends JFrame{
 	/**
 	 * @return the emailJlistHeadlist
 	 */
-	public JList<Header> getEmailJlistHeadlist() {
+	public JList<String> getEmailJlistHeadlist() {
 		return emailJlistHeadlist;
 	}
 

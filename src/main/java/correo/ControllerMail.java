@@ -1,5 +1,9 @@
 package correo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Address;
@@ -13,11 +17,14 @@ import javax.swing.DefaultListModel;
 
 import common.TextES;
 import correo.vistaCorreo.VistaCorreo;
-import correo.vistaCorreo.Header;
 
 public class ControllerMail {
 	VistaCorreo mailView;
 	
+	public VistaCorreo getMailView() {
+		return mailView;
+	}
+
 	public ControllerMail(VistaCorreo view) {
 		mailView = view;
 		Properties props = prepareConnectionProperties();
@@ -43,7 +50,7 @@ public class ControllerMail {
 		Store store;
 		Folder inbox;
 		Message[] messages;
-		DefaultListModel<Header> headerList;
+		DefaultListModel<String> headerList;
 		
 		try {
 			store = session.getStore();
@@ -51,9 +58,9 @@ public class ControllerMail {
 			inbox = store.getFolder(TextES.getControllerMailInboundTargetFolder());
 			inbox.open(Folder.READ_ONLY);
 			messages = inbox.getMessages();
-			headerList = new DefaultListModel<Header>();
+			headerList = new DefaultListModel<String>();
 			for (int i = 0; i < messages.length; i++) {
-				headerList.addElement(new Header(messages[i].getSubject(), messages[i].getSubject(), (messages[i].getReceivedDate().toString())));
+				headerList.addElement(extractHeader(messages[i]));
 			}
 			mailView.addItemsJlist(headerList);
 		} catch (NoSuchProviderException e) {
@@ -73,11 +80,14 @@ public class ControllerMail {
 		StringBuilder date = new StringBuilder(16);
 		Address[] senders;
 		try {
-			senders = message.getAllRecipients();
+			senders = message.getFrom();
 			for (int i = 0; i < senders.length; i++) {
 				sender.append(senders[i].toString());
-				
-			}		
+			}
+			subject.append(message.getSubject());
+		    Date dateRecived = message.getSentDate();  
+		    DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");  
+		    date.append(dateFormat.format(dateRecived));  
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,6 +96,7 @@ public class ControllerMail {
 		header.append(sender);
 		header.append(subject);
 		header.append(date);
+		System.out.println(header.toString());
 		return header.toString();
 	}
 

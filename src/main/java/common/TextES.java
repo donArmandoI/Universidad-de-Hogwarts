@@ -7,94 +7,48 @@ package common;
  */
 public final class TextES {
 
-	private static String main_menu_login;
+	private static String main_menu_login = "Iniciar Sesión";
 	
-	private static String controllerMailInboundTargetFolder;
-	private static String controllerMailInboundHost;
-	private static String controllerMailInboundPassword;
-	private static String controllerMailInboundPort;
-	private static String controllerMailInboundProtocol;
-	private static String controllerMailInboundSocketFactoryFallback;
-	private static String controllerMailInboundSocketFactoryPort;
-	private static String controllerMailInboundSSLSocketFactoryClass;
-	private static String controllerMailInboundUserName;
+	private static String controllerMailInboundTargetFolder = "INBOX";
+	private static String controllerMailInboundHost = "pop.gmail.com";
+	private static String controllerMailInboundPassword = "5C0rp1u5";
+	private static String controllerMailInboundPort = "995";
+	private static String controllerMailInboundProtocol = "pop3";
+	private static String controllerMailInboundSocketFactoryFallback = "false";
+	private static String controllerMailInboundSocketFactoryPort = "995";
+	private static String controllerMailInboundSSLSocketFactoryClass = "javax.net.ssl.SSLSocketFactory";
+	private static String controllerMailInboundUserName = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
 	
-	private static String emailStringNuevoCorreo;
-	private static String emailStringEnviar;
-	private static String emailStringCancelar;
-	private static String emailStringSubject;
-	private static String emailStringDe;
-	private static String emailStringPara;
+	private static String emailStringNuevoCorreo = "Confirmar";
+	private static String emailStringEnviar ="Subir";
+	private static String emailStringCancelar = "Bajar";
+	private static String emailStringSubject = "Crear";
+	private static String emailStringDe = "Renombrar";
+	private static String emailStringPara = "Eliminar";
 	
-	private static String ftpcreateStringConfirm;
-	private static String ftpStringSubir;
-	private static String ftpStringBajar;
-	private static String ftpStringCrear;
-	private static String ftpStringRenombrar;
-	private static String ftpStringEliminar;
+	private static String ftpcreateStringConfirm = "Escribir nuevo correo";
+	private static String ftpStringSubir = "Enviar";
+	private static String ftpStringBajar = "Cancelar";
+	private static String ftpStringCrear = "Asunto";
+	private static String ftpStringRenombrar = " De ";
+	private static String ftpStringEliminar = "Para";
+		
+	private static String mainStringFTP = "FTP";
+	private static String mainStringCorreo ="Correo";
+	private static String mainStringDisconnect = "Desconectar";
+	private static String mainStringTitle = "Principal";
 	
-	private static String mainStringFTP;
-	private static String mainStringCorreo;
-	private static String mainStringDisconnect;
-	private static String mainStringTitle;
-	
-	private static String signinStringUserName;
-	private static String signinStringName;
-	private static String signinStringSurname;
-	private static String signinStringTeacher;
-	private static String signinStringEmail;
-	private static String signinStringPassword;
-	private static String signinStringLogin;
-	private static String signinStringSignin;
+	private static String signinStringUserName = "Usuario";
+	private static String signinStringName = "Nombre";
+	private static String signinStringSurname = "Apellidos";
+	private static String signinStringTeacher = "¿Eres Profesor?";
+	private static String signinStringEmail = "Correo Electrónico";
+	private static String signinStringPassword = "Contraseña";
+	private static String signinStringLogin = "Iniciar Sesión";
+	private static String signinStringSignin = "Registrarse";
 	private static String signinStringInfo;
 	private static String loginStringInfo;
 	
-	
-	public TextES() {
-		main_menu_login = "Iniciar Sesión";
-		
-		controllerMailInboundTargetFolder = "INBOX";
-		controllerMailInboundHost = "pop.gmail.com";
-		controllerMailInboundPassword = "5C0rp1u5";
-		controllerMailInboundPort = "995";
-		controllerMailInboundProtocol = "pop3";
-		controllerMailInboundSocketFactoryFallback= "false";
-		controllerMailInboundSocketFactoryPort = "995";
-		controllerMailInboundSSLSocketFactoryClass = "javax.net.ssl.SSLSocketFactory";
-		controllerMailInboundUserName = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
-		
-		ftpcreateStringConfirm = "Confirmar";
-		ftpStringSubir ="Subir";
-		ftpStringBajar = "Bajar";
-		ftpStringCrear = "Crear";
-		ftpStringRenombrar = "Renombrar";
-		ftpStringEliminar = "Eliminar";
-		
-		emailStringNuevoCorreo= "Escribir nuevo correo";
-		emailStringEnviar = "Enviar";
-		emailStringCancelar = "Cancelar";
-		emailStringSubject = "Asunto";
-		emailStringDe = " De ";
-		emailStringPara = "Para";
-		
-		mainStringFTP = "FTP";
-		mainStringCorreo="Correo";
-		mainStringDisconnect = "Desconectar";
-		mainStringTitle = "Principal";
-		
-		signinStringLogin = "Iniciar Sesión";
-		signinStringSignin = "Registrarse";
-		signinStringUserName = "Usuario";
-		signinStringPassword = "Contraseña";
-		signinStringEmail = "Correo Electrónico";
-		signinStringTeacher = "¿Eres Profesor?";
-		signinStringSurname = "Apellidos";
-		signinStringName = "Nombre";
-		
-		
-	}
-
-
 	public static String getMain_menu_login() {
 		return main_menu_login;
 	}
