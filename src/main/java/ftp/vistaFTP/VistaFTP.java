@@ -58,7 +58,7 @@ public class VistaFTP extends JPanel {
 		ftpJbuttonReturn.setBackground(new Color(255, 253, 150));
 		ftpJbuttonReturn.setBorder(null);
 
-		ImageIcon icono = new ImageIcon(getClass().getResource("/imagenesFTP/arrow.png"));
+		ImageIcon icono = new ImageIcon(getClass().getResource("/ftp/imagenesFTP/arrow.png"));
 		ftpJbuttonReturn.setIcon(icono);
 
 		ftpJpanelHeadline.add(ftpJbuttonUser);

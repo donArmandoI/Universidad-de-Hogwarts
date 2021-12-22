@@ -12,6 +12,7 @@ import java.io.File;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import javax.swing.border.EmptyBorder;
  *
  */
 public class JpanelFichero extends JPanel {
-	JLabel contentJlabelImagenFile = new JLabel();
+	JButton contentJbuttonImagenFile = new JButton();
 	JLabel contentJlabelFile = new JLabel();
 	
 	public JpanelFichero(boolean directorio, String name) {
@@ -34,12 +35,14 @@ public class JpanelFichero extends JPanel {
 		// TODO Auto-generated method stub
 		ImageIcon icono;
 		if (directorio) {
-			icono = new ImageIcon(getClass().getResource("/imagenesFTP/carpetita.png"));
-			contentJlabelImagenFile.setIcon(icono);
+			icono = new ImageIcon(getClass().getResource("/ftp/imagenesFTP/carpetita.png"));
+			contentJbuttonImagenFile.setIcon(icono);
+			contentJbuttonImagenFile.setName(name);
 			contentJlabelFile.setText(name);
 		} else {
-			icono = new ImageIcon(getClass().getResource("/imagenesFTP/doc.png"));
-			contentJlabelImagenFile.setIcon(icono);
+			icono = new ImageIcon(getClass().getResource("/ftp/imagenesFTP/doc.png"));
+			contentJbuttonImagenFile.setIcon(icono);
+			contentJbuttonImagenFile.setName(name);
 			contentJlabelFile.setText(name);
 		}
 
@@ -47,7 +50,9 @@ public class JpanelFichero extends JPanel {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		add(contentJlabelImagenFile);
+		contentJbuttonImagenFile.setBackground(new Color(209, 242, 235));
+		contentJbuttonImagenFile.setBorder(null);
+		add(contentJbuttonImagenFile);
 		contentJlabelFile.setForeground(Color.BLACK);
 		add(contentJlabelFile);
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -55,11 +60,13 @@ public class JpanelFichero extends JPanel {
 		this.setLayout(new FlowLayout());
 	}
 
+	
+
 	/**
-	 * @return the contentJlabelImagenFile
+	 * @return the contentJbuttonImagenFile
 	 */
-	public JLabel getContentJlabelImagenFile() {
-		return contentJlabelImagenFile;
+	public JButton getContentJbuttonImagenFile() {
+		return contentJbuttonImagenFile;
 	}
 
 	/**
