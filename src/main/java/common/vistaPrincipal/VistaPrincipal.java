@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 import common.TextES;
+import ftp.vistaFTP.JpanelFichero;
 
 /**
  * @author Natalia
@@ -21,7 +22,7 @@ public class VistaPrincipal extends JFrame {
 	TextES spanish = new TextES();
 	JMenuBar mainJmenubarMenuBar;
 	JMenu mainJmenuFTP, mainJmenuEmail, mainJmenuDisconnect;
-	JPanel mainJpanelPanel = new JPanel();
+	JPanel mainJpanelPanel = new JPanel(new GridLayout(0,1));
 
 	public VistaPrincipal() {
 		crearItems();
@@ -37,6 +38,10 @@ public class VistaPrincipal extends JFrame {
 		mainJmenubarMenuBar.add(mainJmenuFTP);
 		mainJmenubarMenuBar.add(mainJmenuEmail);
 		mainJmenubarMenuBar.add(mainJmenuDisconnect);
+	}
+	
+	public void addJpanel(JPanel panel) {
+		mainJpanelPanel.add(panel);
 	}
 
 	private void propiedades() {
