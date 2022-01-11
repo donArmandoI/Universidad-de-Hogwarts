@@ -3,6 +3,7 @@ package correo;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -15,6 +16,8 @@ import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import com.sun.mail.smtp.SMTPTransport;
 
 import common.TextES;
 
@@ -35,34 +38,38 @@ public class ButtonNewMailSendListener implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Verificación de dirección, ensamblaje del mensaje y envio
 		try {
-			InternetAddress target = new InternetAddress("ialonsocalzado.sanjose@alumnado.fundacionloyola.net");
+			InternetAddress target = new InternetAddress(user.getText(), true);
 			if (addressVerification(target)) {
-			// Connection properties object creation and configuration.
-			Properties properties = propertiesSetup();
-
-	        // Session object creation to represent a mail session with the previously specified properties. 
-	    	Session session = Session.getDefaultInstance(properties);
-
-	        // Create a message with the specified information.
-	        Message message = new MimeMessage(session);
-	        message.setFrom(new InternetAddress("ialonsocalzado.sanjose@alumnado.fundacionloyola.net","Israel"));
-	        message.setRecipient(Message.RecipientType.TO, target);
-	        message.setSubject(subject.getText());
-	        message.setContent(bodyText.getText(),"text/html");
-	            
-	        // Create a transport.
-	        Transport transport = session.getTransport(TextES.getButtonnewmailsendlistenertransportprotocolvalue());
-	                    
-	        // Connect to Gmail using the SMTP username and password you specified above.
-            transport.connect(TextES.getButtonnewmailsendlistenerhost(), TextES.getButtonnewmailsendlistenersmtpusername(), TextES.getButtonnewmailsendlistenersmtppassword());
-        	
-            // Send the email.
-            transport.sendMessage(message, message.getAllRecipients());
-            System.out.println(message.getAllRecipients()[0].toString());
-            JOptionPane.showMessageDialog(bodyText, TextES.getButtonnewmailsendlistenermessagemessagesentok());
-            
-            transport.close();
-		}
+				// Connection properties object creation and configuration.
+				Properties properties = propertiesSetup();
+	
+		        // Session object creation to represent a mail session with the previously specified properties. 
+		    	Session session = Session.getInstance(properties);
+	
+		        // Create a message with the specified information.
+		        MimeMessage message = new MimeMessage(session);
+		        message.setFrom(new InternetAddress("ialonsocalzado.sanjose@alumnado.fundacionloyola.net","Israel"));
+		        message.setRecipient(Message.RecipientType.TO, target);
+		        message.setSubject(subject.getText());
+		        message.setText(bodyText.getText(), "UTF-8");
+		        message.setHeader("X-Mailer", "smtpsend");
+		        message.setSentDate(new Date());
+		            
+		        // Create a transport.
+		        SMTPTransport transport =
+		        		(SMTPTransport)session.getTransport(TextES.getButtonnewmailsendlistenertransportprotocolvalue());
+//		        Transport transport = session.getTransport(TextES.getButtonnewmailsendlistenertransportprotocolvalue());
+		                    
+		        // Connect to Gmail using the SMTP username and password you specified above.
+	            transport.connect(TextES.getButtonnewmailsendlistenerhost(), TextES.getButtonnewmailsendlistenersmtpusername(), TextES.getButtonnewmailsendlistenersmtppassword());
+//	        	transport.connect();
+	        	
+	            // Send the email.
+	            transport.sendMessage(message, message.getAllRecipients());
+	            System.out.println(message.getAllRecipients()[0].toString());
+				transport.close();
+	            JOptionPane.showMessageDialog(bodyText, TextES.getButtonnewmailsendlistenermessagemessagesentok());
+			}
 		} catch (AddressException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

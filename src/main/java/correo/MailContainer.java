@@ -49,7 +49,7 @@ public class MailContainer {
 	
 	public synchronized void downloadMails() {
 		// TODO Auto-generated method stub
-		session = Session.getDefaultInstance(props);
+		session = Session.getInstance(props);
 		
 		try {
 			store = session.getStore();

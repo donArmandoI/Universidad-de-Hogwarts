@@ -14,10 +14,10 @@ public final class TextES {
 	private static final String ButtonNewMailSendListenerErrorMessageMessageNotSent = "Error enviando el mensaje";
 	private static final String ButtonNewMailSendListenerFrom = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
 	private static final String ButtonNewMailSendListenerFromName = "Sandalphon";
-	private static final String ButtonNewMailSendListenerHost = "smtp.google.com";
+	private static final String ButtonNewMailSendListenerHost = "smtp.gmail.com";
 	private static final String ButtonNewMailSendListenerMessageMessageSentOK = "Mensaje enviado";
 	private static final String ButtonNewMailSendListenerProtocolHostProperty = "mail.smtp.host";
-	private static final String ButtonNewMailSendListenerProtocolHostValue = "smtp";
+	private static final String ButtonNewMailSendListenerProtocolHostValue = "smtp.gmail.com";
 	private static final String ButtonNewMailSendListenerProtocolPortProperty = "mail.smtp.port";
 	private static final int ButtonNewMailSendListenerProtocolPortValue = 587;
 	private static final String ButtonNewMailSendListenerSMTPAuthProperty = "mail.smtp.auth";
