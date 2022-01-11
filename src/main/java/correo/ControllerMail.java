@@ -2,7 +2,6 @@ package correo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -13,56 +12,67 @@ import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
+import javax.mail.internet.InternetAddress;
 import javax.swing.DefaultListModel;
 
 import common.TextES;
+import correo.vistaCorreo.Header;
 import correo.vistaCorreo.VistaCorreo;
 
 public class ControllerMail {
 	VistaCorreo mailView;
+	MailContainer container;
+	Message[] messages;
 	
 	public VistaCorreo getMailView() {
 		return mailView;
 	}
 
-	public ControllerMail(VistaCorreo view) {
+	public ControllerMail(VistaCorreo view, MailContainer container) {
 		mailView = view;
-		Properties props = prepareConnectionProperties();
-		readMails(props);
-		System.out.println("Activando vista");
+		this.container = container;
+		container.prepareConnectionProperties();
+		container.downloadMails();		
+		SynchThread synch = new SynchThread(container);
+		synch.start();
+		readMails();
+		mailView.getEmailJbuttonCreate().addMouseListener(new NewMailButtonListener());
 		mailView.setVisible(true);
-		System.out.println("Fin");
+		while(container.isSynch()) {
+			readMails();
+			try {
+				Thread.sleep(60000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		// Acceder al correo y leer los mensajes de la carpeta de recibidos - Listo
 		// Agregar cada correo como un item - Listo
-		// Agregarle el evento a cada encabezado
+		// Agregarle el evento a cada encabezado - Listo
 		// Cuando se pulse en un encabezado, se extrae el número de mensaje, se busca
 			// el mensaje con ese número y se lanza la vista del visor con ese mensaje
-		// Listener botón crear
 		// Listener botón nuevo -> enviar
-		// Hilo de sincronía
-		// Tubería para la sincronía
+		// Hilo de sincronía`- Listo
+		// Tubería para la sincronía - Listo
 			
 	}
 
-	private void readMails(Properties props) {
+	private void readMails() {
 		// TODO Auto-generated method stub
-		Session session = Session.getDefaultInstance(props);
-		Store store;
-		Folder inbox;
-		Message[] messages;
-		DefaultListModel<String> headerList;
-		
 		try {
-			store = session.getStore();
-			store.connect(TextES.getControllerMailInboundUserName(), TextES.getControllerMailInboundPassword());
-			inbox = store.getFolder(TextES.getControllerMailInboundTargetFolder());
-			inbox.open(Folder.READ_ONLY);
-			messages = inbox.getMessages();
-			headerList = new DefaultListModel<String>();
+			messages = container.getInbox().getMessages();
+			mailView.clearMessages();
 			for (int i = 0; i < messages.length; i++) {
-				headerList.addElement(extractHeader(messages[i]));
+				Header head = new Header(messages[i].getMessageNumber(), extractDate(messages[i]), 
+						extractSenders(messages[i]), messages[i].getSubject());
+				head.getLblDate().addMouseListener(new HeaderListener(messages));
+				head.getLblSender().addMouseListener(new HeaderListener(messages));
+				head.getLblSubject().addMouseListener(new HeaderListener(messages));
+				System.out.println(messages[i].getMessageNumber());
+				mailView.addMessage(head);
 			}
-			mailView.addItemsJlist(headerList);
+			mailView.repaint();
 		} catch (NoSuchProviderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,46 +81,35 @@ public class ControllerMail {
 			e.printStackTrace();
 		}
 	}
-
-	private String extractHeader(Message message) {
-		// TODO Auto-generated method stub
-		StringBuilder header = new StringBuilder(166);
-		StringBuilder sender = new StringBuilder(50);
-		StringBuilder subject = new StringBuilder(100);
-		StringBuilder date = new StringBuilder(16);
+	
+	private String extractSenders(Message message) {
+		StringBuilder sender = new StringBuilder(150);
 		Address[] senders;
 		try {
 			senders = message.getFrom();
 			for (int i = 0; i < senders.length; i++) {
-				sender.append(senders[i].toString());
+				InternetAddress address = new InternetAddress(senders[i].toString());
+				sender.append(address.toUnicodeString() + " ");
 			}
-			subject.append(message.getSubject());
-		    Date dateRecived = message.getSentDate();  
-		    DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyy hh:mm");  
-		    date.append(dateFormat.format(dateRecived));  
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		header.append(sender);
-		header.append(subject);
-		header.append(date);
-		System.out.println(header.toString());
-		return header.toString();
+		return sender.toString();
 	}
-
-	private Properties prepareConnectionProperties() {
-		// TODO Auto-generated method stub
-		Properties props = new Properties();
-		props.setProperty("mail.store.protocol", "pop3");
-		props.setProperty("mail.pop3.starttls.enable", "true");
-		props.setProperty("mail.pop3.host", TextES.getControllerMailInboundHost());
-		props.setProperty("mail.pop3.port", TextES.getControllerMailInboundPort());
-		props.setProperty("mail.pop3.socketFactory.class", TextES.getControllerMailInboundSSLSocketFactoryClass());
-		props.setProperty("mail.pop3.socketFactory.fallback", TextES.getControllerMailInboundSocketFactoryFallback());
-		props.setProperty("mail.pop3.socketFactory.port", TextES.getControllerMailInboundSocketFactoryPort());
-		return props;
+	
+	private String extractDate(Message message) {
+		String date = null;
+		Date dateRecived;
+		try {
+			dateRecived = message.getSentDate();
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");  
+		    date = dateFormat.format(dateRecived);
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
+	    return date;
 	}
 	
 }

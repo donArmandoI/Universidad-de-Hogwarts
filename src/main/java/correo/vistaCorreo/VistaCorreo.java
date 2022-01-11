@@ -4,48 +4,52 @@
 package correo.vistaCorreo;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 
-import javax.swing.BorderFactory;
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import org.jdesktop.swingx.VerticalLayout;
 
 import common.TextES;
+import javax.swing.BoxLayout;
 
 /**
  * @author Natalia
  *
  */
 public class VistaCorreo extends JFrame{
-	JList<String> emailJlistHeadlist = new JList<String>();
-	JButton emailJbuttonCreate = new JButton(TextES.getEmailStringNuevoCorreo());
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1183932292649499724L;
+	JButton emailJbuttonCreate = new JButton(TextES.getEmailStringNewMail());
+	JPanel board = new JPanel();
 	
 	public VistaCorreo() {
 		propiedades();
 	}
 
-	public void addItemsJlist(DefaultListModel<String> modelo) {
-		emailJlistHeadlist.setModel(modelo);
+	public void addMessage(Header message) {
+		board.add(message, 0);
+		board.updateUI();
+	}
+	
+	public void clearMessages() {
+		board.removeAll();
+		validate();
 	}
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		this.setLayout(new BorderLayout());
+		getContentPane().setLayout(new BorderLayout());
+		getContentPane().add(emailJbuttonCreate, BorderLayout.SOUTH);
+		JScrollPane scroll = new JScrollPane(board);
+		VerticalLayout vlo = new VerticalLayout();
 		
-		add(emailJlistHeadlist, BorderLayout.CENTER);
-		add(emailJbuttonCreate, BorderLayout.SOUTH);
-		
-		emailJlistHeadlist.setBackground(new Color(255, 253, 150));
-		emailJlistHeadlist.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.white));
-	}
-
-	/**
-	 * @return the emailJlistHeadlist
-	 */
-	public JList<String> getEmailJlistHeadlist() {
-		return emailJlistHeadlist;
+		board.setLayout(new VerticalLayout());
+		getContentPane().add(scroll, BorderLayout.CENTER);
 	}
 
 	/**

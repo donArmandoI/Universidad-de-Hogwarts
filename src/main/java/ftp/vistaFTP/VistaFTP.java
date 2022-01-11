@@ -26,7 +26,10 @@ import common.TextES;
  *
  */
 public class VistaFTP extends JPanel {
-	TextES spanish = new TextES();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 284683610640490861L;
 	JPanel ftpJpanelHeadline = new JPanel();
 	JPanel ftpJpanelButtons = new JPanel();
 	JPanel ftpJpanelContentFicheros = new JPanel();
@@ -68,11 +71,11 @@ public class VistaFTP extends JPanel {
 		ftpJpanelHeadline.add(ftpJtextfieldURL);
 		ftpJpanelHeadline.add(ftpJbuttonReturn);
 
-		ftpJbuttonUpload = new JButton(spanish.getFtpStringSubir());
-		ftpJbuttonDownload = new JButton(spanish.getFtpStringBajar());
-		ftpJbuttonRename = new JButton(spanish.getFtpStringRenombrar());
-		ftpJbuttonCreate = new JButton(spanish.getFtpStringCrear());
-		ftpJbuttonDelete = new JButton(spanish.getFtpStringEliminar());
+		ftpJbuttonUpload = new JButton(TextES.getFtpStringUpload());
+		ftpJbuttonDownload = new JButton(TextES.getFtpStringDownload());
+		ftpJbuttonRename = new JButton(TextES.getFtpStringRename());
+		ftpJbuttonCreate = new JButton(TextES.getFtpStringCreate());
+		ftpJbuttonDelete = new JButton(TextES.getFtpStringDelete());
 
 		ftpJpanelButtons.add(ftpJbuttonUpload);
 		ftpJpanelButtons.add(ftpJbuttonDownload);

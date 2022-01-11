@@ -17,13 +17,18 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import common.TextES;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
 
 /**
  * @author Natalia
  *
  */
 public class JdialogLeerCorreo extends JDialog{
-	TextES spanish = new TextES();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -456739594043133809L;
 	JPanel emailreadJpanelHeadlines = new JPanel(new GridLayout(0,1));
 	JPanel emailreadJpanelSubject = new JPanel();
 	JPanel emailreadJpanelUser = new JPanel();
@@ -36,23 +41,29 @@ public class JdialogLeerCorreo extends JDialog{
 	JTextArea emailreadJtextareaText;
 	JButton emailreadJbuttonCancel;
 
-	public JdialogLeerCorreo() {
+	public JdialogLeerCorreo(String subject, String sender, JTextArea body) {
+		
 		crearItems();
 		propiedades();
+		
+		emailreadJtextfieldSubject.setText(subject);;
+		emailreadJtextfieldUser.setText(sender);;
+		emailreadJpanelText.add(body);;
+		
 	}
 
 	private void crearItems() {
 		// TODO Auto-generated method stub
-		emailreadJlabelSubject = new JLabel(spanish.getEmailStringSubject());
-		emailreadJlabelUser = new JLabel(spanish.getEmailStringDe());
+		emailreadJlabelSubject = new JLabel(TextES.getEmailStringSubject());
+		emailreadJlabelUser = new JLabel(TextES.getEmailStringFrom());
 		
 		emailreadJtextfieldSubject = new JTextField(50);
 		emailreadJtextfieldUser = new JTextField(52);
 		
-		emailreadJtextareaText = new JTextArea(30,70);
-		emailreadJtextareaText.setBounds(100,80,20,20);
+//		emailreadJtextareaText = new JTextArea(30,70);
+//		emailreadJtextareaText.setBounds(100,80,20,20);
 		
-		emailreadJbuttonCancel = new JButton(spanish.getEmailStringCancelar());
+		emailreadJbuttonCancel = new JButton(TextES.getEmailStringCancel());
 		
 		emailreadJpanelSubject.add(emailreadJlabelSubject);
 		emailreadJpanelSubject.add(emailreadJtextfieldSubject);
@@ -62,18 +73,18 @@ public class JdialogLeerCorreo extends JDialog{
 		emailreadJpanelHeadlines.add(emailreadJpanelSubject);
 		emailreadJpanelHeadlines.add(emailreadJpanelUser);
 		
-		emailreadJpanelText.add(emailreadJtextareaText);
+//		emailreadJpanelText.add(emailreadJtextareaText);
 
 		emailreadJpanelButtons.add(emailreadJbuttonCancel);
 		
 	}
 
 	private void propiedades() {
+		getContentPane().setLayout(new BorderLayout(0, 0));
 		// TODO Auto-generated method stub
-		add(emailreadJpanelHeadlines);
-		add(emailreadJpanelText);
-		add(emailreadJpanelButtons);
-		this.setLayout(new FlowLayout());
+		getContentPane().add(emailreadJpanelHeadlines, BorderLayout.NORTH);
+		getContentPane().add(emailreadJpanelText, BorderLayout.CENTER);
+		getContentPane().add(emailreadJpanelButtons, BorderLayout.SOUTH);
 		this.setSize(new Dimension(820,720));
 		this.getContentPane().setBackground(new Color(255, 253, 150));
 		this.setResizable(false);
