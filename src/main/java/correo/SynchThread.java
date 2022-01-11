@@ -14,12 +14,11 @@ public class SynchThread extends Thread{
 		// TODO Auto-generated method stub
 		while(container.isSynch()) {
 			try {
-				Thread.sleep(60000);
+				Thread.sleep(30000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			container.downloadMails();
 			System.out.println("Correo sincronizado");
 		}
 	}

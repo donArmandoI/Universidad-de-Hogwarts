@@ -1,8 +1,6 @@
 package common;
 
 import correo.ControllerMail;
-import correo.MailContainer;
-import correo.vistaCorreo.VistaCorreo;
 
 /**
  * @author Israel
@@ -11,9 +9,7 @@ import correo.vistaCorreo.VistaCorreo;
 public class Main {
 
 	public static void main(String[] args) {
-		VistaCorreo vista = new VistaCorreo();
-		MailContainer container = new MailContainer();
-		ControllerMail conMail = new ControllerMail(vista, container);
+		ControllerMail conMail = new ControllerMail();
 //		VistaPrincipal vista = new VistaPrincipal();
 		//VistaLogin vista = new VistaLogin();
 //		vista.setVisible(true);
