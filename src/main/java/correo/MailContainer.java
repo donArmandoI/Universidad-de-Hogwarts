@@ -7,6 +7,7 @@ import java.util.Properties;
 
 import javax.mail.Address;
 import javax.mail.Folder;
+import javax.mail.FolderClosedException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -14,8 +15,9 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.event.MessageCountAdapter;
 import javax.mail.event.MessageCountEvent;
-import javax.mail.event.MessageCountListener;
 import javax.mail.internet.InternetAddress;
+
+import com.sun.mail.imap.IMAPFolder;
 
 import common.TextES;
 import correo.vistaCorreo.Header;
@@ -57,29 +59,29 @@ public class MailContainer {
 			inbox.addMessageCountListener(new MessageCountAdapter() {
 				public void messagesAdded(MessageCountEvent ev) {
 				    System.out.println("Mensajes actualizados");
-					messages = ev.getMessages();
+					try {
+						messages = inbox.getMessages();
+					} catch (MessagingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				    readMails();
 				}
 		    });
-			
-//			inbox.addMessageCountListener(new MessageCountListener() {
-//				
-//				@Override
-//				public void messagesRemoved(MessageCountEvent e) {
-//					// TODO Auto-generated method stub
-//					readMails();
-//				}
-//				
-//				@Override
-//				public void messagesAdded(MessageCountEvent e) {
-//					// TODO Auto-generated method stub
-//					readMails();
-//				}
-//			});
+
 			
 		} catch (NoSuchProviderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void checkNewMessages() {
+		try {
+			inbox.getMessageCount();
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
