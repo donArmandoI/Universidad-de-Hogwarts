@@ -1,5 +1,6 @@
 package common;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataInputStream;
@@ -8,6 +9,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.swing.JButton;
+import javax.swing.border.LineBorder;
 
 import login.vistaLoginSignin.VistaLogin;
 import login.vistaLoginSignin.VistaSignin;
@@ -15,7 +21,6 @@ import login.vistaLoginSignin.VistaSignin;
 public class EventAction implements ActionListener {
 
 	private String action;
-	private int position;
 
 	private VistaLogin login;
 	private VistaSignin signin;
@@ -30,9 +35,7 @@ public class EventAction implements ActionListener {
 
 	private Usuario user;
 
-	public EventAction(String action, int position, VistaLogin login, VistaSignin signin, Socket cli) {
-		this.action = action;
-		this.position = position;
+	public EventAction(VistaLogin login, VistaSignin signin, Socket cli) {
 
 		this.login = login;
 		this.signin = signin;
@@ -54,99 +57,199 @@ public class EventAction implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (action.equals("Log in")) {
-			if (position == 0) {
-				try {
-					dataOut.writeUTF(action);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				iniciarLogin();
-			} else {
-				cambiarSignin();
-			}
-		} else {
-			if (position == 0) {
-				try {
-					dataOut.writeUTF(action);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				iniciarSignin();
-			} else {
-				cambiarLogin();
-			}
+		JButton buton = (JButton) e.getSource();
+
+		action = buton.getText();
+
+		System.out.println(action);
+
+		if (buton == login.getLoginJbuttonLogin()) {
+			iniciarLogin(action);
+		}
+
+		if (buton == login.getLoginJbuttonSignin()) {
+			limpiarTextos();
+			cambiarSignin();
+		}
+
+		if (buton == signin.getSigninJbuttonSignin()) {
+			iniciarSignin(action);
+		}
+
+		if (buton == signin.getSigninJbuttonLogin()) {
+			limpiarTextos();
+			cambiarLogin();
 		}
 	}
 
-	private void cambiarLogin() {
-
-	}
-
-	private void cambiarSignin() {
-
-	}
-
-	private void iniciarSignin() {
+	private void iniciarSignin(String action) {
 		try {
+			if (comprobarDatos(action)) {
 
-			if (comprobarUserName(signin.getSigninJtextfieldUsername().getText())) {
-				System.out.println("\nNOMBRE CORRECTO\n");
-			} else {
-				System.out.println("\nNOMBRE INCORRECTO\n");
+				dataOut.writeUTF(action);
+
+				dataOut.writeUTF(signin.getSigninJtextfieldUsername().getText());
+				dataOut.writeUTF(signin.getSigninJtextfieldName().getText());
+				dataOut.writeUTF(signin.getSigninJtextfieldSurname().getText());
+				dataOut.writeBoolean(signin.getSigninJcheckboxTeacher().isSelected());
+				dataOut.writeUTF(signin.getSigninJtextfieldEmail().getText());
+				dataOut.writeUTF(String.valueOf(signin.getSigninJPasswordfieldPassword().getPassword()));
+
+				if (dataIn.readBoolean()) {
+
+					System.out.println("USUARIO CREADO");
+
+					limpiarTextos();
+					cambiarLogin();
+					
+				} else {
+
+					System.err.println("USUARIO NO CREADO");
+				}
+
 			}
 
-			dataOut.writeUTF(signin.getSigninJtextfieldUsername().getText());
-			dataOut.writeUTF(signin.getSigninJtextfieldName().getText());
-			dataOut.writeUTF(signin.getSigninJtextfieldSurname().getName());
-			dataOut.writeBoolean(signin.getSigninJcheckboxTeacher().isSelected());
-			dataOut.writeUTF(signin.getSigninJtextfieldEmail().getText());
-			dataOut.writeUTF(String.valueOf(signin.getSigninJPasswordfieldPassword().getPassword()));
-
-			user = (Usuario) objectIn.readObject();
-
-			if (user != null) {
-
-				System.out.println("USUARIO CREADO");
-
-			} else {
-
-				System.err.println("USUARIO NO CREADO");
-
-			}
-
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private boolean comprobarUserName(String userName) {
+	private void iniciarLogin(String action) {
+		try {
+			if (comprobarDatos(action)) {
 
-		boolean correcto = userName.matches("/[.,+*%&@':;|#=?$]/");
+				dataOut.writeUTF(action);
+
+				dataOut.writeUTF(login.getLoginJtextfieldUsername().getText());
+				dataOut.writeUTF(String.valueOf(login.getLoginJPasswordfieldPassword().getPassword()));
+
+				String url = dataIn.readUTF();
+
+				if (!url.equals("")) {
+
+					dataOut.writeUTF(login.getLoginJtextfieldUsername().getText());
+
+					user = new Usuario(login.getLoginJtextfieldUsername().getText(), dataIn.readUTF(), dataIn.readUTF(),
+							dataIn.readBoolean(), dataIn.readUTF(),
+							String.valueOf(login.getLoginJPasswordfieldPassword().getPassword()), url);
+
+					System.out.println(
+							user.getUserName() + " " + user.getName() + " " + user.getSurName() + " " + user.isTeacher()
+									+ " " + user.getEmail() + " " + user.getPassword() + " " + user.getUrl());
+
+				} else {
+
+					System.err.println("USUARIO NO ENCONTRADO");
+				}
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private boolean comprobarDatos(String vistaSeleccionada) {
+
+		boolean correcto = true;
+
+		if (vistaSeleccionada.equals("Log in")) {
+
+			// COMPROBAR USERNAME
+			if (!Tools.comprobarUserName(login.getLoginJtextfieldUsername().getText())) {
+				login.getLoginJtextfieldUsername().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				login.getLoginJtextfieldUsername().setBorder(new LineBorder(Color.black, 1));
+			}
+
+			// COMPROBAR PASSWORD
+			if (!Tools.comprobarPassword(String.valueOf(login.getLoginJPasswordfieldPassword().getPassword()))) {
+				login.getLoginJPasswordfieldPassword().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				login.getLoginJPasswordfieldPassword().setBorder(new LineBorder(Color.black, 1));
+			}
+
+		} else {
+
+			// COMPROBAR USERNAME
+			if (!Tools.comprobarUserName(signin.getSigninJtextfieldUsername().getText())) {
+				signin.getSigninJtextfieldUsername().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				signin.getSigninJtextfieldUsername().setBorder(new LineBorder(Color.black, 1));
+			}
+
+			// COMPROBAR NAME
+			if (!Tools.comprobarNameSurName(signin.getSigninJtextfieldName().getText())) {
+				signin.getSigninJtextfieldName().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				signin.getSigninJtextfieldName().setBorder(new LineBorder(Color.black, 1));
+			}
+
+			// COMPROBAR SURNAME
+			if (!Tools.comprobarNameSurName(signin.getSigninJtextfieldSurname().getText())) {
+				signin.getSigninJtextfieldSurname().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				signin.getSigninJtextfieldSurname().setBorder(new LineBorder(Color.black, 1));
+			}
+
+			// COMPROBAR EMAIL
+			if (!Tools.comprobarEmail(signin.getSigninJtextfieldEmail().getText())) {
+				signin.getSigninJtextfieldEmail().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				signin.getSigninJtextfieldEmail().setBorder(new LineBorder(Color.black, 1));
+			}
+
+			// COMPROBAR PASSWORD
+			if (!Tools.comprobarPassword(String.valueOf(signin.getSigninJPasswordfieldPassword().getPassword()))) {
+				signin.getSigninJPasswordfieldPassword().setBorder(new LineBorder(Color.red, 2));
+				correcto = false;
+			} else {
+				signin.getSigninJPasswordfieldPassword().setBorder(new LineBorder(Color.black, 1));
+			}
+		}
 
 		return correcto;
 	}
 
-	private void iniciarLogin() {
-		try {
+	private void limpiarTextos() {
+		// LOG IN
+		login.getLoginJtextfieldUsername().setText("");
+		login.getLoginJtextfieldUsername().setBorder(new LineBorder(Color.black, 1));
 
-			dataOut.writeUTF(login.getLoginJtextfieldUsername().getText());
-			dataOut.writeUTF(String.valueOf(login.getLoginJPasswordfieldPassword().getPassword()));
+		login.getLoginJPasswordfieldPassword().setText("");
+		login.getLoginJPasswordfieldPassword().setBorder(new LineBorder(Color.black, 1));
 
-			user = (Usuario) objectIn.readObject();
+		// SIGN IN
+		signin.getSigninJtextfieldUsername().setText("");
+		signin.getSigninJtextfieldUsername().setBorder(new LineBorder(Color.black, 1));
 
-			if (user != null) {
+		signin.getSigninJtextfieldName().setText("");
+		signin.getSigninJtextfieldName().setBorder(new LineBorder(Color.black, 1));
 
-				System.out.println("USUARIO ENCONTRADO");
+		signin.getSigninJtextfieldSurname().setText("");
+		signin.getSigninJtextfieldSurname().setBorder(new LineBorder(Color.black, 1));
 
-			} else {
+		signin.getSigninJcheckboxTeacher().setSelected(false);
 
-				System.err.println("USUARIO NO ENCONTRADO");
+		signin.getSigninJtextfieldEmail().setText("");
+		signin.getSigninJtextfieldEmail().setBorder(new LineBorder(Color.black, 1));
 
-			}
+		signin.getSigninJPasswordfieldPassword().setText("");
+		signin.getSigninJPasswordfieldPassword().setBorder(new LineBorder(Color.black, 1));
+	}
 
-		} catch (IOException | ClassNotFoundException e) {
-			e.printStackTrace();
-		}
+	private void cambiarLogin() {
+		signin.setVisible(false);
+		login.setVisible(true);
+	}
+
+	private void cambiarSignin() {
+		login.setVisible(false);
+		signin.setVisible(true);
 	}
 }

@@ -56,27 +56,27 @@ public class VistaSignin extends JFrame {
 
 	private void crearSignin() {
 		// TODO Auto-generated method stub
-		signinJlabelUsername = new JLabel(TextES.getSigninStringUserName());
+		signinJlabelUsername = new JLabel("USERNAME");
 		signinJtextfieldUsername = new JTextField(15);
 
-		signinJlabelName = new JLabel(TextES.getSigninStringName());
+		signinJlabelName = new JLabel("NAME");
 		signinJtextfieldName = new JTextField(15);
 
-		signinJlabelSurname = new JLabel(TextES.getSigninStringSurname());
+		signinJlabelSurname = new JLabel("SURNAME");
 		signinJtextfieldSurname = new JTextField(15);
 
-		signinJlabelTeacher = new JLabel(TextES.getSigninStringTeacher());
+		signinJlabelTeacher = new JLabel("TEACHER");
 		signinJcheckboxTeacher = new JCheckBox();
 
-		signinJlabelEmail = new JLabel(TextES.getSigninStringEmail());
+		signinJlabelEmail = new JLabel("EMAIL");
 		signinJtextfieldEmail = new JTextField(15);
 
-		signinJlabelPassword = new JLabel(TextES.getSigninStringPassword());
+		signinJlabelPassword = new JLabel("PASSWORD");
 		signinJPasswordfieldPassword = new JPasswordField(15);
 
-		signinJlabelLogin = new JLabel(TextES.getSigninStringInfo());
-		signinJbuttonSignin = new JButton(TextES.getSigninStringSignin());
-		signinJbuttonLogin = new JButton(TextES.getSigninStringLogin());
+		signinJlabelLogin = new JLabel("LOG IN");
+		signinJbuttonSignin = new JButton("Sign in");
+		signinJbuttonLogin = new JButton("Log in");
 
 		signinJPanelLabel.add(signinJlabelUsername);
 		signinJPanelTextfield.add(signinJtextfieldUsername);
@@ -95,7 +95,7 @@ public class VistaSignin extends JFrame {
 
 		signinJPanelLabel.add(signinJlabelPassword);
 		signinJPanelTextfield.add(signinJPasswordfieldPassword);
-		
+
 		signinJPanelLogin.add(signinJlabelLogin);
 		signinJPanelLogin.add(signinJbuttonLogin);
 		signinJPanelSignin.add(signinJbuttonSignin);
@@ -105,25 +105,24 @@ public class VistaSignin extends JFrame {
 		// TODO Auto-generated method stub;´
 		JPanel contenido = new JPanel(new BorderLayout());
 		signinJPanelButton.setLayout(new BoxLayout(signinJPanelButton, BoxLayout.Y_AXIS));
-		
+
 		JpanelImagen fondo = new JpanelImagen("/login/imagenLogin/Hogwarts-logo-1.png");
 		add(fondo);
-		signinJPanelLabel.setLayout(new GridLayout(0,1));
-		signinJPanelTextfield.setLayout(new GridLayout(0,1));
-		
+		signinJPanelLabel.setLayout(new GridLayout(0, 1));
+		signinJPanelTextfield.setLayout(new GridLayout(0, 1));
+
 		signinJPanelButton.add(signinJPanelSignin);
 		signinJPanelButton.add(signinJPanelLogin);
-		
-		contenido.add(signinJPanelLabel,BorderLayout.WEST);
-		contenido.add(signinJPanelTextfield,BorderLayout.CENTER);
-		
-		contenido.add(signinJPanelButton,BorderLayout.SOUTH);
+
+		contenido.add(signinJPanelLabel, BorderLayout.WEST);
+		contenido.add(signinJPanelTextfield, BorderLayout.CENTER);
+
+		contenido.add(signinJPanelButton, BorderLayout.SOUTH);
 		add(contenido);
-	
 
 		this.setTitle("Signin");
 		this.setSize(new Dimension(400, 400));
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0, 1));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

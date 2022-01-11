@@ -1,29 +1,39 @@
 package common;
 
+import java.io.IOException;
+import java.net.Socket;
+
 import login.vistaLoginSignin.VistaLogin;
+import login.vistaLoginSignin.VistaSignin;
 
 public class Main {
 
 	public static void main(String[] args) {
 
+		Tuberia tub = new Tuberia();
+
 		VistaLogin login = new VistaLogin();
-		// signin = new VistaSignin();
+		VistaSignin signin = new VistaSignin();
 		login.setVisible(true);
-		// signin.setVisible(false);
+		signin.setVisible(false);
 
-		/*
 		try {
-			Socket cli = new Socket("localhost", 6000);
+			Socket cli = new Socket("localhost", 5000);
 
-			login.getLoginJbuttonLogin().addActionListener(new EventAction("Log in", 0, login, signin, cli));
-			login.getLoginJbuttonSignin().addActionListener(new EventAction("Sign in", 0, login, signin, cli));
+			EventAction ev = new EventAction(login, signin, cli);
+			WindowsAct win = new WindowsAct(cli);
 
-			signin.getSigninJbuttonSignin().addActionListener(new EventAction("Sign in", 1, login, signin, cli));
-			signin.getSigninJbuttonLogin().addActionListener(new EventAction("Log in", 1, login, signin, cli));
+			login.getLoginJbuttonLogin().addActionListener(ev);
+			login.getLoginJbuttonSignin().addActionListener(ev);
+			login.addWindowListener(win);
+
+			signin.getSigninJbuttonSignin().addActionListener(ev);
+			signin.getSigninJbuttonLogin().addActionListener(ev);
+			signin.addWindowListener(win);
 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		*/
+
 	}
 }

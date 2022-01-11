@@ -8,7 +8,13 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
 
-import common.Usuario;
+import org.apache.ftpserver.FtpServer;
+import org.apache.ftpserver.FtpServerFactory;
+import org.apache.ftpserver.ftplet.Authority;
+import org.apache.ftpserver.ftplet.FtpException;
+import org.apache.ftpserver.listener.ListenerFactory;
+import org.apache.ftpserver.usermanager.impl.BaseUser;
+import org.apache.ftpserver.usermanager.impl.WritePermission;
 
 public class HiloServer implements Runnable {
 
@@ -20,9 +26,17 @@ public class HiloServer implements Runnable {
 	private ObjectOutputStream objectOut;
 	private ObjectInputStream objectIn;
 
-	private Usuario user;
 	private Datos data;
 	private Conexion conn;
+
+	private FtpServer ftpServ;
+	private final int PORT = 5000;
+	private String username = "";
+	private String password = "";
+	private String root = "";
+	private FtpServerFactory serverFactory;
+	private ListenerFactory listenerFactory;
+	private BaseUser user;
 
 	public HiloServer(Socket cliente) {
 		h = new Thread(this);
@@ -45,34 +59,78 @@ public class HiloServer implements Runnable {
 
 	@Override
 	public void run() {
+		String accion = "";
+
+		do {
+			try {
+				System.out.println(h.getName() + " START ");
+
+				accion = dataIn.readUTF();
+
+				System.out.println("LEIDO");
+
+				switch (accion) {
+				case "Log in":
+					System.out.println("ENTRA EN LOG IN");
+					String url = comprobarUsuario();
+					dataOut.writeUTF(url);
+					if (!url.equals("")) {
+						enviarDatosUsuario(dataIn.readUTF());
+					}
+					break;
+				case "Sign in":
+					System.out.println("ENTRA EN SIGN IN");
+					dataOut.writeBoolean(crearSesion());
+					break;
+				case "Subir":
+					break;
+				case "Bajar":
+					break;
+				case "Renombrar":
+					break;
+				case "Eliminar":
+					break;
+				case "CERRAR":
+					System.out.println("CERRANDO");
+					break;
+				default:
+					System.err.println("ERROR");
+					break;
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} while (!accion.equals("CERRAR"));
+	}
+
+	private void enviarDatosUsuario(String userName) {
+		String sql = "SELECT name, surName, teacher, email FROM users WHERE userName = '" + userName + "'";
+		System.out.println(sql);
+		conn.setResultSet(sql);
+
 		try {
 
-			String accion = dataIn.readUTF();
+			conn.getRs().next();
 
-			switch (accion) {
-			case "Log in":
-				objectOut.writeObject(comprobarUsuario());
-				break;
-			case "Sign in":
-				crearSesion();
-				break;
-			default:
-				break;
-			}
+			dataOut.writeUTF(conn.getRs().getString(1));
+			dataOut.writeUTF(conn.getRs().getString(2));
+			dataOut.writeBoolean(conn.getRs().getBoolean(3));
+			dataOut.writeUTF(conn.getRs().getString(4));
 
-		} catch (IOException e) {
+		} catch (SQLException | IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private Usuario crearSesion() {
+	private boolean crearSesion() {
 		String userName;
 		String name;
 		String surName;
 		boolean teacher;
 		String email;
 		String password;
-		String url;
+		String url = "";
 
 		String sql;
 
@@ -90,26 +148,33 @@ public class HiloServer implements Runnable {
 				url = "\\profesores\\";
 			}
 
-			url = url + userName + "\\";
+			url = url + userName;
 
-			sql = "SELECT * FROM users WHERE userName = '" + userName + "'";
+			sql = "SELECT url FROM users WHERE userName = '" + userName + "'";
 
 			conn.setResultSet(sql);
 
 			if (conn.getRs().next()) {
-				return null;
+				return false;
 			} else {
-				return new Usuario(userName, name, surName, teacher, email, password, url);
+
+				sql = "INSERT INTO users VALUES ( '" + userName + "', '" + name + "', '" + surName + "', " + teacher
+						+ ", '" + email + "', MD5('" + password + "'), '" + url + "' )";
+				System.out.println(sql);
+				
+				int filas = conn.setExecuteUpdate(sql);
+				
+				System.out.println("El numero de filas añadidas son: " + filas);
 			}
 
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return true;
 	}
 
-	private Usuario comprobarUsuario() {
+	private String comprobarUsuario() {
 
 		// Se lee primero USERNAME y PASSWORD
 
@@ -122,7 +187,7 @@ public class HiloServer implements Runnable {
 			userName = dataIn.readUTF();
 			password = dataIn.readUTF();
 
-			sql = "SELECT * FROM users WHERE userName = '" + userName + "' AND password = MD5('" + password + "')";
+			sql = "SELECT url FROM users WHERE userName = '" + userName + "' AND password = MD5('" + password + "')";
 
 			System.out.println(sql);
 
@@ -130,17 +195,16 @@ public class HiloServer implements Runnable {
 
 			if (conn.getRs().next()) {
 
-				return new Usuario(conn.getRs().getString(1), conn.getRs().getString(2), conn.getRs().getString(3),
-						conn.getRs().getBoolean(4), conn.getRs().getString(5), password, conn.getRs().getString(6));
+				return conn.getRs().getString(1);
 
 			} else {
-				System.err.println("NO HAY USUARIO CON ESA CONTRASEÑA");
+				System.err.println("CONTRASEÑA y/o USUARIO \n--INCORRECTO--");
 			}
 
 		} catch (IOException | SQLException e) {
 			e.printStackTrace();
 		}
 
-		return null;
+		return "";
 	}
 }

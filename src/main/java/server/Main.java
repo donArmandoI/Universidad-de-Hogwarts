@@ -10,7 +10,7 @@ public class Main {
 
 		ServerSocket server;
 		Socket cliente;
-		int puerto = 6000;
+		int puerto = 5000;
 		Thread hiloServ;
 
 		try {
