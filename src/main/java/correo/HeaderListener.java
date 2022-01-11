@@ -4,21 +4,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
-import javax.activation.DataHandler;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.ContentType;
-import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 import correo.vistaCorreo.Header;
 import correo.vistaCorreo.JdialogLeerCorreo;
 
+/**
+ * @author Israel
+ *
+ */
 public class HeaderListener implements MouseListener {
 	private Message[] messages;
 	JTextArea body = null;
@@ -31,18 +31,15 @@ public class HeaderListener implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO si doble click, detectar numero, completar vista con datos del Header y
-		// extraer y mostrar subject, controland si es simple o multi
 		if (e.getClickCount() == 2) {
 			JLabel selected = (JLabel) e.getSource();
 			Header head = (Header) selected.getParent();
 			System.out.println("Mensaje " + head.getMessageNumber());
 			body = new JTextArea(30, 40);
 			body.setLineWrap(true);
-//			body.setBounds(100, 80, 30, 40);
 			body.setEditable(false);
 			try {
-				getTextFromMessage(messages[head.getMessageNumber() - 1]); ;
+				getTextFromMessage(messages[head.getMessageNumber() - 1]);
 			} catch (IOException | MessagingException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -51,9 +48,7 @@ public class HeaderListener implements MouseListener {
 					head.getLblSender().getText(), body);
 			System.out.println(body.getText());
 			readMail.setVisible(true);
-
 		}
-
 	}
 
 	@Override
@@ -81,9 +76,8 @@ public class HeaderListener implements MouseListener {
 	}
 
 	private void getTextFromMessage(Message message) throws IOException, MessagingException {
-		String result = "";
 		if (message.isMimeType("text/plain")) {
-			result = message.getContent().toString();
+			body.append(message.getContent().toString());
 		} else if (message.isMimeType("multipart/*")) {
 			MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
 			getTextFromMimeMultipart(mimeMultipart);
@@ -91,16 +85,12 @@ public class HeaderListener implements MouseListener {
 	}
 
 	private void getTextFromMimeMultipart(MimeMultipart mimeMultipart) throws IOException, MessagingException {
-
 		int count = mimeMultipart.getCount();
 		if (count == 0)
 			throw new MessagingException("Multipart with no body parts not supported.");
 		boolean multipartAlt = new ContentType(mimeMultipart.getContentType()).match("multipart/alternative");
 		if (multipartAlt)
-			// alternatives appear in an order of increasing
-			// faithfulness to the original content. Customize as req'd.
 			getTextFromBodyPart(mimeMultipart.getBodyPart(count - 1));
-		String result = "";
 		for (int i = 0; i < count; i++) {
 			BodyPart bodyPart = mimeMultipart.getBodyPart(i);
 			getTextFromBodyPart(bodyPart);
@@ -108,8 +98,6 @@ public class HeaderListener implements MouseListener {
 	}
 
 	private void getTextFromBodyPart(BodyPart bodyPart) throws IOException, MessagingException {
-
-		String result = "";
 		if (bodyPart.isMimeType("text/plain")) {
 			body.append(((String) bodyPart.getContent()));
 			body.append(System.getProperty("line.separator"));
@@ -121,5 +109,4 @@ public class HeaderListener implements MouseListener {
 			getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent());
 		}
 	}
-
 }

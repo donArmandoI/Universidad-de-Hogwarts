@@ -1,6 +1,10 @@
 package correo;
 
-public class SynchThread extends Thread{
+/**
+ * @author Israel
+ *
+ */
+public class SynchThread extends Thread {
 	MailContainer container;
 
 	public SynchThread(MailContainer container) {
@@ -12,7 +16,7 @@ public class SynchThread extends Thread{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(container.isSynch()) {
+		while (container.isSynch()) {
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
@@ -23,6 +27,5 @@ public class SynchThread extends Thread{
 			container.checkNewMessages();
 		}
 	}
-	
-	
+
 }

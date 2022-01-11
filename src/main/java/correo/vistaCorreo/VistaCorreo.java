@@ -13,20 +13,19 @@ import javax.swing.JScrollPane;
 import org.jdesktop.swingx.VerticalLayout;
 
 import common.TextES;
-import javax.swing.BoxLayout;
 
 /**
  * @author Natalia
  *
  */
-public class VistaCorreo extends JFrame{
+public class VistaCorreo extends JFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1183932292649499724L;
 	JButton emailJbuttonCreate = new JButton(TextES.getEmailStringNewMail());
 	JPanel board = new JPanel();
-	
+
 	public VistaCorreo() {
 		propiedades();
 	}
@@ -35,7 +34,7 @@ public class VistaCorreo extends JFrame{
 		board.add(message, 0);
 		board.updateUI();
 	}
-	
+
 	public void clearMessages() {
 		board.removeAll();
 		validate();
@@ -46,8 +45,6 @@ public class VistaCorreo extends JFrame{
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(emailJbuttonCreate, BorderLayout.SOUTH);
 		JScrollPane scroll = new JScrollPane(board);
-		VerticalLayout vlo = new VerticalLayout();
-		
 		board.setLayout(new VerticalLayout());
 		getContentPane().add(scroll, BorderLayout.CENTER);
 	}
@@ -58,6 +55,5 @@ public class VistaCorreo extends JFrame{
 	public JButton getEmailJbuttonCreate() {
 		return emailJbuttonCreate;
 	}
-	
 
 }

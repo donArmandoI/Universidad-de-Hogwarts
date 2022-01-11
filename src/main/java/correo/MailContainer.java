@@ -7,7 +7,6 @@ import java.util.Properties;
 
 import javax.mail.Address;
 import javax.mail.Folder;
-import javax.mail.FolderClosedException;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
@@ -17,12 +16,14 @@ import javax.mail.event.MessageCountAdapter;
 import javax.mail.event.MessageCountEvent;
 import javax.mail.internet.InternetAddress;
 
-import com.sun.mail.imap.IMAPFolder;
-
 import common.TextES;
 import correo.vistaCorreo.Header;
 import correo.vistaCorreo.VistaCorreo;
 
+/**
+ * @author Israel
+ *
+ */
 public class MailContainer {
 	VistaCorreo mailView;
 	Properties props = new Properties();
@@ -30,15 +31,13 @@ public class MailContainer {
 	Store store;
 	Folder inbox;
 	Message[] messages;
-	boolean synch =  true;
-	
+	boolean synch = true;
+
 	public MailContainer(VistaCorreo mailView) {
-		// TODO Auto-generated constructor stub
-		this.mailView =  mailView;
+		this.mailView = mailView;
 	}
 
 	public void prepareConnectionProperties() {
-		// TODO Auto-generated method stub
 		props.setProperty("mail.store.protocol", "imap");
 		props.setProperty("mail.imap.host", TextES.getControllerMailInboundHost());
 		props.setProperty("mail.imap.port", TextES.getControllerMailInboundPort());
@@ -46,11 +45,9 @@ public class MailContainer {
 		props.setProperty("mail.imap.socketFactory.fallback", TextES.getControllerMailInboundSocketFactoryFallback());
 		props.setProperty("mail.imap.socketFactory.port", TextES.getControllerMailInboundSocketFactoryPort());
 	}
-	
+
 	public synchronized void downloadMails() {
-		// TODO Auto-generated method stub
 		session = Session.getInstance(props);
-		
 		try {
 			store = session.getStore();
 			store.connect(TextES.getControllerMailInboundUserName(), TextES.getControllerMailInboundPassword());
@@ -58,18 +55,16 @@ public class MailContainer {
 			inbox.open(Folder.READ_ONLY);
 			inbox.addMessageCountListener(new MessageCountAdapter() {
 				public void messagesAdded(MessageCountEvent ev) {
-				    System.out.println("Mensajes actualizados");
+					System.out.println("Mensajes actualizados");
 					try {
 						messages = inbox.getMessages();
 					} catch (MessagingException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				    readMails();
+					readMails();
 				}
-		    });
-
-			
+			});
 		} catch (NoSuchProviderException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +73,7 @@ public class MailContainer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void checkNewMessages() {
 		try {
 			inbox.getMessageCount();
@@ -87,14 +82,13 @@ public class MailContainer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void readMails() {
-		// TODO Auto-generated method stub
 		try {
 			messages = inbox.getMessages();
 			mailView.clearMessages();
 			for (int i = 0; i < messages.length; i++) {
-				Header head = new Header(messages[i].getMessageNumber(), extractDate(messages[i]), 
+				Header head = new Header(messages[i].getMessageNumber(), extractDate(messages[i]),
 						extractSenders(messages[i]), messages[i].getSubject());
 				head.getLblDate().addMouseListener(new HeaderListener(messages));
 				head.getLblSender().addMouseListener(new HeaderListener(messages));
@@ -111,7 +105,7 @@ public class MailContainer {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private String extractSenders(Message message) {
 		StringBuilder sender = new StringBuilder(150);
 		Address[] senders;
@@ -127,19 +121,19 @@ public class MailContainer {
 		}
 		return sender.toString();
 	}
-	
+
 	private String extractDate(Message message) {
 		String date = null;
 		Date dateRecived;
 		try {
 			dateRecived = message.getSentDate();
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");  
-		    date = dateFormat.format(dateRecived);
+			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			date = dateFormat.format(dateRecived);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}  
-	    return date;
+		}
+		return date;
 	}
 
 	public Folder getInbox() {

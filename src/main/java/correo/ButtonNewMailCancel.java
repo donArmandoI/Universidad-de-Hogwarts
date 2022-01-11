@@ -5,9 +5,13 @@ import java.awt.event.ActionListener;
 
 import correo.vistaCorreo.JdialogNuevoCorreo;
 
+/**
+ * @author Israel
+ *
+ */
 public class ButtonNewMailCancel implements ActionListener {
 	private JdialogNuevoCorreo newMailView;
-	
+
 	public ButtonNewMailCancel(JdialogNuevoCorreo newMailView) {
 		// TODO Auto-generated constructor stub
 		this.newMailView = newMailView;
@@ -36,7 +40,5 @@ public class ButtonNewMailCancel implements ActionListener {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }
