@@ -15,7 +15,7 @@ public class ControllerMail {
 		SynchThread synch = new SynchThread(container);
 		synch.start();
 		container.readMails();
-		mailView.getEmailJbuttonCreate().addMouseListener(new NewMailButtonListener());
+		mailView.getEmailJbuttonCreate().addActionListener(new NewMailButtonListener());;
 		mailView.setVisible(true);
 //		while(container.isSynch()) {
 //			readMails();

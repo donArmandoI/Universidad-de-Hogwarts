@@ -1,44 +1,21 @@
 package correo;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import correo.vistaCorreo.JdialogNuevoCorreo;
 
-public class NewMailButtonListener implements MouseListener {
+public class NewMailButtonListener implements ActionListener {
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		JdialogNuevoCorreo newMailView = new JdialogNuevoCorreo();
-		newMailView.getEmailcreateJButtonSend().addMouseListener(new ButtonNewMailSendListener(newMailView.getEmailcreateJtextfieldUser(), 
-				newMailView.getEmailcreateJtextfieldSubject(), newMailView.getEmailcreateJtextareaText()));
-		newMailView.getEmailcreateJbuttonCancel().addMouseListener(new ButtonNewMailCancel());
+		newMailView.getEmailcreateJButtonSend().addActionListener(new ButtonNewMailSendListener(newMailView));
+		newMailView.getEmailcreateJbuttonCancel().addActionListener(new ButtonNewMailCancel(newMailView));
 		newMailView.setVisible(true);
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
 }

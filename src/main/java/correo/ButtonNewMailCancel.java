@@ -1,38 +1,22 @@
 package correo;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public record ButtonNewMailCancel() implements MouseListener {
+import correo.vistaCorreo.JdialogNuevoCorreo;
 
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+public class ButtonNewMailCancel implements ActionListener {
+	private JdialogNuevoCorreo newMailView;
+	
+	public ButtonNewMailCancel(JdialogNuevoCorreo newMailView) {
+		// TODO Auto-generated constructor stub
+		this.newMailView = newMailView;
 	}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		newMailView.dispose();
 	}
 
 	@Override
@@ -52,5 +36,7 @@ public record ButtonNewMailCancel() implements MouseListener {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
 
 }
