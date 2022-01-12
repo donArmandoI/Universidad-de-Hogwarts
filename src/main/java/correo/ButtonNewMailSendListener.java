@@ -41,16 +41,7 @@ public class ButtonNewMailSendListener implements ActionListener {
 				Session session = Session.getInstance(properties);
 
 				// Create a message with the specified information.
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(TextES.getButtonnewmailsendlistenerfrom(),
-						TextES.getButtonnewmailsendlistenerfromname()));
-				message.setRecipient(Message.RecipientType.TO, target);
-				message.setSubject(newMailView.getEmailcreateJtextfieldSubject().getText());
-				message.setText(newMailView.getEmailcreateJtextareaText().getText(),
-						TextES.getButtonnewmailsendlistenerencoding());
-				message.setHeader(TextES.getButtonnewmailsendlistenerheaderpropertiy(),
-						TextES.getButtonnewmailsendlistenerheadervalue());
-				message.setSentDate(new Date());
+				MimeMessage message = createMessage(target, session);
 
 				// Create a transport.
 				SMTPTransport transport = (SMTPTransport) session
@@ -83,8 +74,35 @@ public class ButtonNewMailSendListener implements ActionListener {
 		}
 	}
 
+	/**
+	 * Create a Message instance with data from the config and view.
+	 * @param target - InternetAddress - Recipient address.
+	 * @param session - Session - The actual connection session.
+	 * @return - MimeMessage - The assembled new message.
+	 * @throws MessagingException
+	 * @throws UnsupportedEncodingException
+	 */
+	private MimeMessage createMessage(InternetAddress target, Session session)
+			throws MessagingException, UnsupportedEncodingException {
+		MimeMessage message = new MimeMessage(session);
+		message.setFrom(new InternetAddress(TextES.getButtonnewmailsendlistenerfrom(),
+				TextES.getButtonnewmailsendlistenerfromname()));
+		message.setRecipient(Message.RecipientType.TO, target);
+		message.setSubject(newMailView.getEmailcreateJtextfieldSubject().getText());
+		message.setText(newMailView.getEmailcreateJtextareaText().getText(),
+				TextES.getButtonnewmailsendlistenerencoding());
+		message.setHeader(TextES.getButtonnewmailsendlistenerheaderpropertiy(),
+				TextES.getButtonnewmailsendlistenerheadervalue());
+		message.setSentDate(new Date());
+		return message;
+	}
+
+	/**
+	 * Checks the recipient address to be a format valid email address.
+	 * @param address - InternetAddress - The eMail address to check.
+	 * @return - boolean - returns true if the address format is correct or false if it is not.
+	 */
 	private boolean addressVerification(InternetAddress address) {
-		// TODO comrobar arroba y punto después de arroba
 		String mail = address.toUnicodeString();
 		if (mail.contains("@")) {
 			String[] server = mail.split("@");
@@ -109,6 +127,10 @@ public class ButtonNewMailSendListener implements ActionListener {
 
 	}
 
+	/**
+	 * Create and configures the session properties.
+	 * @return - Properties - The configured Gmail SMTP session properties.
+	 */
 	private Properties propertiesSetup() {
 		Properties properties = System.getProperties();
 		properties.put(TextES.getButtonnewmailsendlistenertransportprotocolproperty(),

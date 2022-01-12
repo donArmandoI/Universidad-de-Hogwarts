@@ -7,11 +7,15 @@ import javax.swing.JDialog;
 
 /**
  * @author Israel
- *
+ * Closes the view containing the button.
  */
 public class ButtonCancel implements ActionListener {
 	private JDialog view;
 
+	/**
+	 * Closes the view containing the button.
+	 * @param view - JDialog - The view that contains the button.
+	 */
 	public ButtonCancel(JDialog view) {
 		// TODO Auto-generated constructor stub
 		this.view = (JDialog) view;

@@ -22,7 +22,7 @@ import correo.vistaCorreo.VistaCorreo;
 
 /**
  * @author Israel
- *
+ * Pipe between the eMail controller and the synch thread.
  */
 public class MailContainer {
 	VistaCorreo mailView;
@@ -31,12 +31,22 @@ public class MailContainer {
 	Store store;
 	Folder inbox;
 	Message[] messages;
+	/**
+	 * boolean - Keeps the synch thread running as long as it is true.
+	 */
 	boolean synch = true;
 
+	/**
+	 * Main constructor.
+	 * @param mailView - VistaCorreo - eMail main view.
+	 */
 	public MailContainer(VistaCorreo mailView) {
 		this.mailView = mailView;
 	}
 
+	/**
+	 * Configure the properties of the IMAP connection session.
+	 */
 	public void prepareConnectionProperties() {
 		props.setProperty(TextES.getMailContainerPropertiesProtocolProperty(),
 				TextES.getMailContainerPropertiesProtocolValue());
@@ -52,6 +62,9 @@ public class MailContainer {
 				TextES.getMailContainerPropertiesSocketFactoryPortValue());
 	}
 
+	/**
+	 * Establish the connection, create the store and download the selected folder, then activates the listener for new messages and call the message conversion.
+	 */
 	public synchronized void downloadMails() {
 		session = Session.getInstance(props);
 		try {
@@ -80,6 +93,9 @@ public class MailContainer {
 		}
 	}
 
+	/**
+	 * Checks the folder for new messages.
+	 */
 	public void checkNewMessages() {
 		try {
 			inbox.getMessageCount();
@@ -89,6 +105,9 @@ public class MailContainer {
 		}
 	}
 
+	/**
+	 * Converts each message in the folder to a Header view element and adds it to the main view.
+	 */
 	public void readMails() {
 		try {
 			messages = inbox.getMessages();
@@ -112,6 +131,11 @@ public class MailContainer {
 		}
 	}
 
+	/**
+	 * Extracts and returns the senders on the received message.
+	 * @param message - Message - The message to extract the senders from.
+	 * @return - Address[] - List of message's senders.
+	 */
 	private String extractSenders(Message message) {
 		StringBuilder sender = new StringBuilder(150);
 		Address[] senders;
@@ -128,6 +152,11 @@ public class MailContainer {
 		return sender.toString();
 	}
 
+	/**
+	 * Extracts and returns the reception date from the message received.
+	 * @param message - Message - Message to extract the reception date from.
+	 * @return - String - The message received date.
+	 */
 	private String extractDate(Message message) {
 		String date = null;
 		Date dateRecived;
@@ -142,14 +171,25 @@ public class MailContainer {
 		return date;
 	}
 
+	/**
+	 * @return - Folder - The selected eMail folder.
+	 */
 	public Folder getInbox() {
 		return inbox;
 	}
 
+	/**
+	 * Keeps the synch thread running while is true.
+	 * @return - boolean - returns the synch thread keeper state.
+	 */
 	public boolean isSynch() {
 		return synch;
 	}
 
+	/**
+	 * Sets the synch thread running indicator.
+	 * @param synch - boolean - set the shync thread keeper state.
+	 */
 	public void setSynch(boolean synch) {
 		this.synch = synch;
 	}

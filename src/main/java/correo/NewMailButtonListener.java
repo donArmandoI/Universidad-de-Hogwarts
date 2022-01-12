@@ -7,10 +7,13 @@ import correo.vistaCorreo.JdialogNuevoCorreo;
 
 /**
  * @author Israel
- *
+ * Listener to create a new mail.
  */
 public class NewMailButtonListener implements ActionListener {
 
+	/**
+	 * Generate an enable the new mail view.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub

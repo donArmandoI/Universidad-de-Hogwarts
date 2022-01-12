@@ -4,11 +4,14 @@ import correo.vistaCorreo.VistaCorreo;
 
 /**
  * @author Israel
- *
+ * Initializes the eMail section view, synch thread and Listeners.
  */
 public class ControllerMail {
 	VistaCorreo mailView;
 
+	/**
+	 * Starts the view, synch thread and listener.
+	 */
 	public ControllerMail() {
 		mailView = new VistaCorreo();
 		MailContainer container = new MailContainer(mailView);
@@ -21,6 +24,9 @@ public class ControllerMail {
 		mailView.setVisible(true);
 	}
 
+	/**
+	 * @return VistaCorreo - returns the eMail main view
+	 */
 	public VistaCorreo getMailView() {
 		return mailView;
 	}
