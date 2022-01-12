@@ -16,7 +16,7 @@ public class NewMailButtonListener implements ActionListener {
 		// TODO Auto-generated method stub
 		JdialogNuevoCorreo newMailView = new JdialogNuevoCorreo();
 		newMailView.getEmailcreateJButtonSend().addActionListener(new ButtonNewMailSendListener(newMailView));
-		newMailView.getEmailcreateJbuttonCancel().addActionListener(new ButtonNewMailCancel(newMailView));
+		newMailView.getEmailcreateJbuttonCancel().addActionListener(new ButtonCancel(newMailView));
 		newMailView.setVisible(true);
 	}
 }

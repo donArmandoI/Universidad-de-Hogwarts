@@ -3,9 +3,9 @@
  */
 package correo.vistaCorreo;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -17,8 +17,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import common.TextES;
-import javax.swing.BoxLayout;
-import java.awt.BorderLayout;
 
 /**
  * @author Natalia

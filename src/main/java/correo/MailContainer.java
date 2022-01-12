@@ -38,20 +38,26 @@ public class MailContainer {
 	}
 
 	public void prepareConnectionProperties() {
-		props.setProperty("mail.store.protocol", "imap");
-		props.setProperty("mail.imap.host", TextES.getControllerMailInboundHost());
-		props.setProperty("mail.imap.port", TextES.getControllerMailInboundPort());
-		props.setProperty("mail.imap.socketFactory.class", TextES.getControllerMailInboundSSLSocketFactoryClass());
-		props.setProperty("mail.imap.socketFactory.fallback", TextES.getControllerMailInboundSocketFactoryFallback());
-		props.setProperty("mail.imap.socketFactory.port", TextES.getControllerMailInboundSocketFactoryPort());
+		props.setProperty(TextES.getMailContainerPropertiesProtocolProperty(),
+				TextES.getMailContainerPropertiesProtocolValue());
+		props.setProperty(TextES.getMailContainerPropertiesHostProperty(),
+				TextES.getMailContainerPropertiesHostValue());
+		props.setProperty(TextES.getMailContainerPropertiesPortProperty(),
+				TextES.getMailContainerPropertiesPortValue());
+		props.setProperty(TextES.getMailContainerPropertiesSSLSocketFactoryClassProperty(),
+				TextES.getMailContainerPropertiesSSLSocketFactoryClassValue());
+		props.setProperty(TextES.getMailContainerPropertiesSocketFactoryFallbackProperty(),
+				TextES.getMailContainerPropertiesSocketFactoryFallbackValue());
+		props.setProperty(TextES.getMailContainerPropertiesSocketFactoryPortProperty(),
+				TextES.getMailContainerPropertiesSocketFactoryPortValue());
 	}
 
 	public synchronized void downloadMails() {
 		session = Session.getInstance(props);
 		try {
 			store = session.getStore();
-			store.connect(TextES.getControllerMailInboundUserName(), TextES.getControllerMailInboundPassword());
-			inbox = store.getFolder(TextES.getControllerMailInboundTargetFolder());
+			store.connect(TextES.getMailContainerConnectUserName(), TextES.getMailContainerConnectPassword());
+			inbox = store.getFolder(TextES.getMailContainerConnectTargetFolder());
 			inbox.open(Folder.READ_ONLY);
 			inbox.addMessageCountListener(new MessageCountAdapter() {
 				public void messagesAdded(MessageCountEvent ev) {
@@ -127,7 +133,7 @@ public class MailContainer {
 		Date dateRecived;
 		try {
 			dateRecived = message.getSentDate();
-			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+			DateFormat dateFormat = new SimpleDateFormat(TextES.getMailContainerDateFormat());
 			date = dateFormat.format(dateRecived);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block

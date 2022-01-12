@@ -46,6 +46,7 @@ public class HeaderListener implements MouseListener {
 			}
 			JdialogLeerCorreo readMail = new JdialogLeerCorreo(head.getLblSubject().getText(),
 					head.getLblSender().getText(), body);
+			readMail.getEmailreadJbuttonCancel().addActionListener(new ButtonCancel(readMail));
 			System.out.println(body.getText());
 			readMail.setVisible(true);
 		}

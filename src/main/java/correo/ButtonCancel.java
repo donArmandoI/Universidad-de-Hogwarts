@@ -3,24 +3,24 @@ package correo;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import correo.vistaCorreo.JdialogNuevoCorreo;
+import javax.swing.JDialog;
 
 /**
  * @author Israel
  *
  */
-public class ButtonNewMailCancel implements ActionListener {
-	private JdialogNuevoCorreo newMailView;
+public class ButtonCancel implements ActionListener {
+	private JDialog view;
 
-	public ButtonNewMailCancel(JdialogNuevoCorreo newMailView) {
+	public ButtonCancel(JDialog view) {
 		// TODO Auto-generated constructor stub
-		this.newMailView = newMailView;
+		this.view = (JDialog) view;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		newMailView.dispose();
+		view.dispose();
 	}
 
 	@Override
