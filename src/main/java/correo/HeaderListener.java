@@ -1,5 +1,6 @@
 package correo;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -11,6 +12,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.ContentType;
 import javax.mail.internet.MimeMultipart;
+import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 
 import org.jdesktop.swingx.JXEditorPane;
@@ -42,8 +44,10 @@ public class HeaderListener implements MouseListener {
 			Header head = (Header) selected.getParent();
 			System.out.println("Mensaje " + head.getMessageNumber());
 			body = new JXEditorPane();
+			body.setBackground(new Color(230, 230, 250));
+			body.setBounds(100,80,20,20);
 			body.setLayout(new VerticalLayout());
-			body.setPreferredSize(new Dimension(1400, 700));
+			body.setPreferredSize(new Dimension(1400, 2000));
 			try {
 				getTextFromMessage(messages[head.getMessageNumber() - 1]);
 			} catch (IOException | MessagingException e1) {
@@ -84,6 +88,8 @@ public class HeaderListener implements MouseListener {
 	private void getTextFromMessage(Message message) throws IOException, MessagingException {
 		if (message.isMimeType("text/plain")) {
 			JXEditorPane part = new JXEditorPane("text/plain", message.getContent().toString() + System.lineSeparator());
+			body.setBackground(new Color(230, 230, 250));
+			body.setBounds(100,80,20,20);
 			part.setEditable(false);
 			body.add(part);
 		} else if (message.isMimeType("multipart/*")) {
@@ -113,12 +119,16 @@ public class HeaderListener implements MouseListener {
 		} else if (bodyPart.isMimeType("text/html")) {
 			String html = (String) bodyPart.getContent();
 			JXEditorPane part = new JXEditorPane("text/html", Jsoup.parse(html).text() + System.lineSeparator());
+			body.setBackground(new Color(230, 230, 250));
+			body.setBounds(100,80,20,20);
 			part.setEditable(false);
 			body.add(part);
 		} else if (bodyPart.isMimeType("image/*")) {
 			JXImagePanel part = new JXImagePanel();
 			part.setImage(ImageIO.read(bodyPart.getInputStream()));
 			part.setPreferredSize(new Dimension(part.getImage().getWidth(part), part.getImage().getHeight(part)));
+			body.setBackground(new Color(230, 230, 250));
+			body.setBounds(100,80,20,20);
 			part.setEditable(false);
 			body.add(part);
 		} else if (bodyPart.getContent() instanceof MimeMultipart) {

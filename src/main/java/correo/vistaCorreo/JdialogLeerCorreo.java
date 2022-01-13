@@ -10,16 +10,15 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import org.jdesktop.swingx.JXEditorPane;
-import org.jdesktop.swingx.JXPanel;
 
 import common.TextES;
 
@@ -85,10 +84,11 @@ public class JdialogLeerCorreo extends JDialog{
 	private void propiedades() {
 		getContentPane().setLayout(new BorderLayout(0, 0));
 		// TODO Auto-generated method stub
+		JScrollPane scroll = new JScrollPane(emailreadJpanelText);		
 		getContentPane().add(emailreadJpanelHeadlines, BorderLayout.NORTH);
-		getContentPane().add(emailreadJpanelText, BorderLayout.CENTER);
+		getContentPane().add(scroll, BorderLayout.CENTER);
 		getContentPane().add(emailreadJpanelButtons, BorderLayout.SOUTH);
-		this.setSize(new Dimension(1500,800));
+		this.setMinimumSize(new Dimension(1500,800));
 		this.getContentPane().setBackground(new Color(255, 253, 150));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
