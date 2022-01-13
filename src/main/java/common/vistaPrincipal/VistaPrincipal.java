@@ -46,14 +46,55 @@ public class VistaPrincipal extends JFrame {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		this.setTitle(spanish.getMainStringTitle());
+		//this.setTitle(spanish.getMainStringTitle());
 		this.setSize(new Dimension(860, 680));
 		this.setLayout(new BorderLayout());
 
 		add(mainJmenubarMenuBar, BorderLayout.NORTH);
 		add(mainJpanelPanel, BorderLayout.CENTER);
 
+		this.setVisible(true);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
+	public JMenuBar getMainJmenubarMenuBar() {
+		return mainJmenubarMenuBar;
+	}
+
+	public void setMainJmenubarMenuBar(JMenuBar mainJmenubarMenuBar) {
+		this.mainJmenubarMenuBar = mainJmenubarMenuBar;
+	}
+
+	public JMenu getMainJmenuFTP() {
+		return mainJmenuFTP;
+	}
+
+	public void setMainJmenuFTP(JMenu mainJmenuFTP) {
+		this.mainJmenuFTP = mainJmenuFTP;
+	}
+
+	public JMenu getMainJmenuEmail() {
+		return mainJmenuEmail;
+	}
+
+	public void setMainJmenuEmail(JMenu mainJmenuEmail) {
+		this.mainJmenuEmail = mainJmenuEmail;
+	}
+
+	public JMenu getMainJmenuDisconnect() {
+		return mainJmenuDisconnect;
+	}
+
+	public void setMainJmenuDisconnect(JMenu mainJmenuDisconnect) {
+		this.mainJmenuDisconnect = mainJmenuDisconnect;
+	}
+
+	public JPanel getMainJpanelPanel() {
+		return mainJpanelPanel;
+	}
+
+	public void setMainJpanelPanel(JPanel mainJpanelPanel) {
+		this.mainJpanelPanel = mainJpanelPanel;
 	}
 }

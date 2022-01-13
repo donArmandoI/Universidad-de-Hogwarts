@@ -51,7 +51,16 @@ public class VistaCorreo extends JPanel{
 		emailJlistHeadlist.setBackground(new Color(255, 253, 150));
 		emailJlistHeadlist.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, Color.white));
 
+		this.setVisible(true);
 		this.setSize(new Dimension(820, 500));
 	}
 
+	/**
+	 * @return the emailJlistHeadlist
+	 */
+
+	public JList<Object> getEmailJlistHeadlist() {
+		return emailJlistHeadlist;
+	}
+	
 }

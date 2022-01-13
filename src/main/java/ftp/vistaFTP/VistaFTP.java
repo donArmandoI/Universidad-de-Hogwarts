@@ -27,7 +27,7 @@ public class VistaFTP extends JPanel {
 	JPanel ftpJpanelHeadline = new JPanel();
 	JPanel ftpJpanelButtons = new JPanel();
 	JPanel ftpJpanelContentFicheros = new JPanel();
-	ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<>();
+	ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList();
 
 	JList<Object> ftpJlistFilename;
 	JScrollPane scroll;
