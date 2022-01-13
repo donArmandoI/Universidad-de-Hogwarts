@@ -13,8 +13,13 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import org.jdesktop.swingx.JXEditorPane;
+import org.jdesktop.swingx.JXPanel;
 
 import common.TextES;
 
@@ -39,14 +44,14 @@ public class JdialogLeerCorreo extends JDialog{
 	JTextArea emailreadJtextareaText;
 	JButton emailreadJbuttonCancel;
 
-	public JdialogLeerCorreo(String subject, String sender, JTextArea body) {
+	public JdialogLeerCorreo(String subject, String sender, JXEditorPane body) {
 		
 		crearItems();
 		propiedades();
 		
-		emailreadJtextfieldSubject.setText(subject);;
-		emailreadJtextfieldUser.setText(sender);;
-		emailreadJpanelText.add(body);;
+		emailreadJtextfieldSubject.setText(subject);
+		emailreadJtextfieldUser.setText(sender);
+		emailreadJpanelText.add(body);
 		
 	}
 
@@ -83,7 +88,7 @@ public class JdialogLeerCorreo extends JDialog{
 		getContentPane().add(emailreadJpanelHeadlines, BorderLayout.NORTH);
 		getContentPane().add(emailreadJpanelText, BorderLayout.CENTER);
 		getContentPane().add(emailreadJpanelButtons, BorderLayout.SOUTH);
-		this.setSize(new Dimension(820,720));
+		this.setSize(new Dimension(1500,800));
 		this.getContentPane().setBackground(new Color(255, 253, 150));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

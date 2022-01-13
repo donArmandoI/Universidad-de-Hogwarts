@@ -1,16 +1,22 @@
 package correo;
 
+import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.ContentType;
 import javax.mail.internet.MimeMultipart;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
+
+import org.jdesktop.swingx.JXEditorPane;
+import org.jdesktop.swingx.JXImagePanel;
+import org.jdesktop.swingx.VerticalLayout;
+import org.jsoup.Jsoup;
 
 import correo.vistaCorreo.Header;
 import correo.vistaCorreo.JdialogLeerCorreo;
@@ -21,7 +27,7 @@ import correo.vistaCorreo.JdialogLeerCorreo;
  */
 public class HeaderListener implements MouseListener {
 	private Message[] messages;
-	JTextArea body = null;
+	JXEditorPane body = null;
 	Message message = null;
 
 	public HeaderListener(Message[] messages) {
@@ -35,9 +41,9 @@ public class HeaderListener implements MouseListener {
 			JLabel selected = (JLabel) e.getSource();
 			Header head = (Header) selected.getParent();
 			System.out.println("Mensaje " + head.getMessageNumber());
-			body = new JTextArea(30, 40);
-			body.setLineWrap(true);
-			body.setEditable(false);
+			body = new JXEditorPane();
+			body.setLayout(new VerticalLayout());
+			body.setPreferredSize(new Dimension(1400, 700));
 			try {
 				getTextFromMessage(messages[head.getMessageNumber() - 1]);
 			} catch (IOException | MessagingException e1) {
@@ -47,7 +53,6 @@ public class HeaderListener implements MouseListener {
 			JdialogLeerCorreo readMail = new JdialogLeerCorreo(head.getLblSubject().getText(),
 					head.getLblSender().getText(), body);
 			readMail.getEmailreadJbuttonCancel().addActionListener(new ButtonCancel(readMail));
-			System.out.println(body.getText());
 			readMail.setVisible(true);
 		}
 	}
@@ -78,7 +83,9 @@ public class HeaderListener implements MouseListener {
 
 	private void getTextFromMessage(Message message) throws IOException, MessagingException {
 		if (message.isMimeType("text/plain")) {
-			body.append(message.getContent().toString());
+			JXEditorPane part = new JXEditorPane("text/plain", message.getContent().toString() + System.lineSeparator());
+			part.setEditable(false);
+			body.add(part);
 		} else if (message.isMimeType("multipart/*")) {
 			MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
 			getTextFromMimeMultipart(mimeMultipart);
@@ -100,12 +107,20 @@ public class HeaderListener implements MouseListener {
 
 	private void getTextFromBodyPart(BodyPart bodyPart) throws IOException, MessagingException {
 		if (bodyPart.isMimeType("text/plain")) {
-			body.append(((String) bodyPart.getContent()));
-			body.append(System.getProperty("line.separator"));
+			JXEditorPane part = new JXEditorPane("text/plain", ((String) bodyPart.getContent()) + System.lineSeparator());
+			part.setEditable(false);
+			body.add(part);
 		} else if (bodyPart.isMimeType("text/html")) {
 			String html = (String) bodyPart.getContent();
-			body.append(org.jsoup.Jsoup.parse(html).text());
-			body.append(System.getProperty("line.separator"));
+			JXEditorPane part = new JXEditorPane("text/html", Jsoup.parse(html).text() + System.lineSeparator());
+			part.setEditable(false);
+			body.add(part);
+		} else if (bodyPart.isMimeType("image/*")) {
+			JXImagePanel part = new JXImagePanel();
+			part.setImage(ImageIO.read(bodyPart.getInputStream()));
+			part.setPreferredSize(new Dimension(part.getImage().getWidth(part), part.getImage().getHeight(part)));
+			part.setEditable(false);
+			body.add(part);
 		} else if (bodyPart.getContent() instanceof MimeMultipart) {
 			getTextFromMimeMultipart((MimeMultipart) bodyPart.getContent());
 		}
