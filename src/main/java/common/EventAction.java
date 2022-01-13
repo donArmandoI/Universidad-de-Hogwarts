@@ -30,9 +30,6 @@ public class EventAction implements ActionListener {
 	private DataOutputStream dataOut;
 	private DataInputStream dataIn;
 
-	private ObjectOutputStream objectOut;
-	private ObjectInputStream objectIn;
-
 	private Usuario user;
 
 	public EventAction(VistaLogin login, VistaSignin signin, Socket cli) {
@@ -46,9 +43,6 @@ public class EventAction implements ActionListener {
 
 			dataOut = new DataOutputStream(cli.getOutputStream());
 			dataIn = new DataInputStream(cli.getInputStream());
-
-			objectOut = new ObjectOutputStream(cli.getOutputStream());
-			objectIn = new ObjectInputStream(cli.getInputStream());
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -101,9 +95,10 @@ public class EventAction implements ActionListener {
 
 					limpiarTextos();
 					cambiarLogin();
-					
+
 				} else {
 
+					signin.getSigninJtextfieldUsername().setBorder(new LineBorder(Color.red, 2));
 					System.err.println("USUARIO NO CREADO");
 				}
 
@@ -128,6 +123,7 @@ public class EventAction implements ActionListener {
 				if (!url.equals("")) {
 
 					dataOut.writeUTF(login.getLoginJtextfieldUsername().getText());
+					dataOut.writeUTF(String.valueOf(login.getLoginJPasswordfieldPassword().getPassword()));
 
 					user = new Usuario(login.getLoginJtextfieldUsername().getText(), dataIn.readUTF(), dataIn.readUTF(),
 							dataIn.readBoolean(), dataIn.readUTF(),

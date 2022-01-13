@@ -2,11 +2,13 @@ package server;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
@@ -23,22 +25,15 @@ public class HiloServer implements Runnable {
 
 	private DataInputStream dataIn;
 	private DataOutputStream dataOut;
-	private ObjectOutputStream objectOut;
-	private ObjectInputStream objectIn;
-
+	
 	private Datos data;
 	private Conexion conn;
 
-	private FtpServer ftpServ;
-	private final int PORT = 5000;
-	private String username = "";
-	private String password = "";
-	private String root = "";
-	private FtpServerFactory serverFactory;
-	private ListenerFactory listenerFactory;
-	private BaseUser user;
+	private final String ROOTURL = "E://UNIVERSIDAD";
 
-	public HiloServer(Socket cliente) {
+	private FTPServer ftpServer;
+
+	public HiloServer(Socket cliente, FTPServer ftpServer) {
 		h = new Thread(this);
 		this.cliente = cliente;
 		data = new Datos("universidadhogwarts");
@@ -46,12 +41,11 @@ public class HiloServer implements Runnable {
 		conn.startConnection(data.getDriver_JDBC(), data.getUrl_JDBC(), data.getDb_DJBC(), data.getUsu_JDBC(),
 				data.getPass_JDBC());
 
+		this.ftpServer = ftpServer;
+
 		try {
 			dataIn = new DataInputStream(cliente.getInputStream());
 			dataOut = new DataOutputStream(cliente.getOutputStream());
-
-			objectOut = new ObjectOutputStream(cliente.getOutputStream());
-			objectIn = new ObjectInputStream(cliente.getInputStream());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,32 +57,33 @@ public class HiloServer implements Runnable {
 
 		do {
 			try {
-				System.out.println(h.getName() + " START ");
+				System.out.println("\n" + h.getName() + " START ");
 
 				accion = dataIn.readUTF();
 
 				System.out.println("LEIDO");
-
+				System.out.println(accion);
+				
 				switch (accion) {
 				case "Log in":
 					System.out.println("ENTRA EN LOG IN");
 					String url = comprobarUsuario();
 					dataOut.writeUTF(url);
 					if (!url.equals("")) {
-						enviarDatosUsuario(dataIn.readUTF());
+
+						String userName = dataIn.readUTF();
+						String password = dataIn.readUTF();
+
+						ftpServer.iniciarUsuario(userName, password, ROOTURL + url);
+
+						enviarDatosUsuario(userName);
+
+						ftpServer.listarUsuarios();
 					}
 					break;
 				case "Sign in":
 					System.out.println("ENTRA EN SIGN IN");
 					dataOut.writeBoolean(crearSesion());
-					break;
-				case "Subir":
-					break;
-				case "Bajar":
-					break;
-				case "Renombrar":
-					break;
-				case "Eliminar":
 					break;
 				case "CERRAR":
 					System.out.println("CERRANDO");
@@ -143,9 +138,9 @@ public class HiloServer implements Runnable {
 			password = dataIn.readUTF();
 
 			if (!teacher) {
-				url = "\\alumnos\\";
+				url = "\\\\alumnos\\\\";
 			} else {
-				url = "\\profesores\\";
+				url = "\\\\profesores\\\\";
 			}
 
 			url = url + userName;
@@ -161,10 +156,17 @@ public class HiloServer implements Runnable {
 				sql = "INSERT INTO users VALUES ( '" + userName + "', '" + name + "', '" + surName + "', " + teacher
 						+ ", '" + email + "', MD5('" + password + "'), '" + url + "' )";
 				System.out.println(sql);
-				
+
 				int filas = conn.setExecuteUpdate(sql);
-				
+
 				System.out.println("El numero de filas añadidas son: " + filas);
+
+				File f = new File(ROOTURL + url);
+				System.out.println(f.getPath());
+				if (!f.exists()) {
+					System.out.println("SE HA CREADO LA CARPETA");
+					f.mkdir();
+				}
 			}
 
 		} catch (IOException | SQLException e) {
