@@ -10,13 +10,19 @@ import correo.vistaCorreo.*;
  */
 public class ControllerMain {
 
-	private VistaPrincipal mainVistaPrincipal;
-	private VistaFTP mainVistaFTP;
-//	private ControllerMail mainControllerMail;
+	private VistaPrincipal mainView;
+	private VistaFTP ftpView;
+	private VistaCorreo mailView;
+	private ControladorFTPCliente ftpController
+	private ControllerMail mailController;
 	
 	public ControllerMain() {
-		mainVistaPrincipal = new VistaPrincipal();
+		mainView = new VistaPrincipal();
+		ftpView =  new VistaFTP();
+		ftpController = new ControladorFTPCliente(ftpView);
+		mailController = new ControllerMail(mailView);
 		eleccionVentana();
+		mainView.setVisible(true);
 	}
 	
 //	private void eleccionVentana() {
@@ -35,9 +41,9 @@ public class ControllerMain {
 //	}
 //	
 	private void eleccionVentana() {
-		mainVistaPrincipal.getMainJmenuFTP().addMouseListener(new EventosVentanas(mainVistaPrincipal));
-		mainVistaPrincipal.getMainJmenuEmail().addMouseListener(new EventosVentanas(mainVistaPrincipal));
-		mainVistaPrincipal.getMainJmenuDisconnect().addMouseListener(new EventosVentanas(mainVistaPrincipal));
+		mainView.getMainJmenuFTP().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
+		mainView.getMainJmenuEmail().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
+		mainView.getMainJmenuDisconnect().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
 	}
 	
 }
