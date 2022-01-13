@@ -4,16 +4,18 @@
 package login.vistaLoginSignin;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
 
-import javax.swing.*;
-import javax.swing.text.JTextComponent;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
-import common.TextEN;
 import common.TextES;
 
 /**
@@ -21,9 +23,10 @@ import common.TextES;
  *
  */
 public class VistaSignin extends JFrame {
-	TextES spanish = new TextES();
-	TextEN english = new TextEN();
-	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2545328209853357415L;
 	JPanel signinJPanelLabel = new JPanel();
 	JPanel signinJPanelTextfield = new JPanel();
 
@@ -60,27 +63,27 @@ public class VistaSignin extends JFrame {
 
 	private void crearSignin() {
 		// TODO Auto-generated method stub
-		signinJlabelUsername = new JLabel(spanish.getSigninStringUserName());
+		signinJlabelUsername = new JLabel(TextES.getSigninStringUserName());
 		signinJtextfieldUsername = new JTextField(15);
 
-		signinJlabelName = new JLabel(spanish.getSigninStringName());
+		signinJlabelName = new JLabel(TextES.getSigninStringName());
 		signinJtextfieldName = new JTextField(15);
 
-		signinJlabelSurname = new JLabel(spanish.getSigninStringSurname());
+		signinJlabelSurname = new JLabel(TextES.getSigninStringSurname());
 		signinJtextfieldSurname = new JTextField(15);
 
-		signinJlabelTeacher = new JLabel(spanish.getSigninStringTeacher());
+		signinJlabelTeacher = new JLabel(TextES.getSigninStringTeacher());
 		signinJcheckboxTeacher = new JCheckBox();
 
-		signinJlabelEmail = new JLabel(spanish.getSigninStringEmail());
+		signinJlabelEmail = new JLabel(TextES.getSigninStringEmail());
 		signinJtextfieldEmail = new JTextField(15);
 
-		signinJlabelPassword = new JLabel(spanish.getSigninStringPassword());
+		signinJlabelPassword = new JLabel(TextES.getSigninStringPassword());
 		signinJPasswordfieldPassword = new JPasswordField(15);
 
-		signinJlabelLogin = new JLabel(spanish.getSigninStringInfo());
-		signinJbuttonSignin = new JButton(spanish.getSigninStringSignin());
-		signinJbuttonLogin = new JButton(spanish.getSigninStringLogin());
+		signinJlabelLogin = new JLabel(TextES.getSigninStringInfo());
+		signinJbuttonSignin = new JButton(TextES.getSigninStringSignin());
+		signinJbuttonLogin = new JButton(TextES.getSigninStringLogin());
 
 		signinJPanelLabel.add(signinJlabelUsername);
 		signinJPanelTextfield.add(signinJtextfieldUsername);
