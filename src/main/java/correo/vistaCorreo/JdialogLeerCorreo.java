@@ -21,6 +21,8 @@ import javax.swing.JTextField;
 import org.jdesktop.swingx.JXEditorPane;
 
 import common.TextES;
+import javax.swing.border.BevelBorder;
+import java.awt.FlowLayout;
 
 /**
  * @author Natalia
@@ -50,6 +52,8 @@ public class JdialogLeerCorreo extends JDialog{
 		
 		emailreadJtextfieldSubject.setText(subject);
 		emailreadJtextfieldUser.setText(sender);
+		emailreadJpanelText.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		emailreadJpanelText.setBackground(new Color(95, 158, 160));
 		emailreadJpanelText.add(body);
 		
 	}
@@ -59,21 +63,33 @@ public class JdialogLeerCorreo extends JDialog{
 		emailreadJlabelSubject = new JLabel(TextES.getEmailStringSubject());
 		emailreadJlabelUser = new JLabel(TextES.getEmailStringFrom());
 		
-		emailreadJtextfieldSubject = new JTextField(50);
-		emailreadJtextfieldUser = new JTextField(52);
+		emailreadJtextfieldSubject = new JTextField(100);
+		emailreadJtextfieldSubject.setBackground(new Color(230, 230, 250));
+		emailreadJtextfieldUser = new JTextField(98);
+		emailreadJtextfieldUser.setBackground(new Color(230, 230, 250));
 		
 //		emailreadJtextareaText = new JTextArea(30,70);
 //		emailreadJtextareaText.setBounds(100,80,20,20);
 		
 		emailreadJbuttonCancel = new JButton(TextES.getEmailStringCancel());
+		FlowLayout flowLayout = (FlowLayout) emailreadJpanelSubject.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEADING);
+		emailreadJpanelSubject.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		emailreadJpanelSubject.setBackground(new Color(95, 158, 160));
 		
 		emailreadJpanelSubject.add(emailreadJlabelSubject);
 		emailreadJpanelSubject.add(emailreadJtextfieldSubject);
+		FlowLayout flowLayout_1 = (FlowLayout) emailreadJpanelUser.getLayout();
+		flowLayout_1.setAlignment(FlowLayout.LEADING);
+		emailreadJpanelUser.setBackground(new Color(95, 158, 160));
+		emailreadJpanelUser.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailreadJpanelUser.add(emailreadJlabelUser);
 		emailreadJpanelUser.add(emailreadJtextfieldUser);
 		
 		emailreadJpanelHeadlines.add(emailreadJpanelSubject);
 		emailreadJpanelHeadlines.add(emailreadJpanelUser);
+		emailreadJpanelButtons.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		emailreadJpanelButtons.setBackground(new Color(95, 158, 160));
 		
 //		emailreadJpanelText.add(emailreadJtextareaText);
 

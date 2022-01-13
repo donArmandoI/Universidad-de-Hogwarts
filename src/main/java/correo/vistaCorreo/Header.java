@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import java.awt.SystemColor;
 import java.awt.Color;
+import javax.swing.border.BevelBorder;
 
 public class Header extends JPanel {
 	/**
@@ -26,7 +27,8 @@ public class Header extends JPanel {
 	private JLabel lblSubject;
 
 	public Header(int numMessage, String date, String sender, String subject) {
-		setBackground(new Color(240, 230, 140));
+		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		setBackground(new Color(95, 158, 160));
 		FlowLayout flowLayout = new FlowLayout();
 		flowLayout.setAlignment(FlowLayout.LEADING);
 		flowLayout.setAlignOnBaseline(true);
@@ -35,14 +37,22 @@ public class Header extends JPanel {
 		messageNumber = numMessage;
 
 		lblDate = new JLabel(date);
-		lblDate.setBackground(new Color(240, 230, 140));
+		lblDate.setIconTextGap(10);
+		lblDate.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblDate.setBackground(new Color(230, 230, 250));
+		lblDate.setOpaque(true);
 		lblDate.setHorizontalAlignment(SwingConstants.LEFT);
 		lblDate.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblDate.setPreferredSize(new Dimension(180, 30));
 		lblDate.setToolTipText("Date");
 		add(lblDate);
 		lblSender = new JLabel(sender);
-		lblSender.setBackground(new Color(240, 230, 140));
+		lblSender.setHorizontalTextPosition(SwingConstants.LEADING);
+		lblSender.setIconTextGap(10);
+		lblSender.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblSender.setOpaque(true);
+		lblSender.setBackground(new Color(230, 230, 250));
+		lblDate.setOpaque(true);
 		lblSender.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSender.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblSender.setPreferredSize(new Dimension(600, 30));
@@ -50,7 +60,10 @@ public class Header extends JPanel {
 		add(lblSender);
 
 		lblSubject = new JLabel(subject);
-		lblSubject.setBackground(new Color(240, 230, 140));
+		lblSubject.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		lblSubject.setOpaque(true);
+		lblSubject.setBackground(new Color(230, 230, 250));
+		lblDate.setOpaque(true);
 		lblSubject.setHorizontalAlignment(SwingConstants.LEFT);
 		lblSubject.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		lblSubject.setPreferredSize(new Dimension(700, 30));
