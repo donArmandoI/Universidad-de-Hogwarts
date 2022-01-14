@@ -6,15 +6,12 @@ import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import common.vistaPrincipal.VistaPrincipal;
 import login.vistaLoginSignin.VistaLogin;
 import login.vistaLoginSignin.VistaSignin;
 
@@ -25,7 +22,7 @@ public class EventAction implements ActionListener {
 	private VistaLogin login;
 	private VistaSignin signin;
 
-	private Socket cli;
+	private ControllerMain mainController;
 
 	private DataOutputStream dataOut;
 	private DataInputStream dataIn;
@@ -36,9 +33,7 @@ public class EventAction implements ActionListener {
 
 		this.login = login;
 		this.signin = signin;
-
-		this.cli = cli;
-
+		this.mainController = new ControllerMain(cli);
 		try {
 
 			dataOut = new DataOutputStream(cli.getOutputStream());
@@ -132,7 +127,10 @@ public class EventAction implements ActionListener {
 					System.out.println(
 							user.getUserName() + " " + user.getName() + " " + user.getSurName() + " " + user.isTeacher()
 									+ " " + user.getEmail() + " " + user.getPassword() + " " + user.getUrl());
-
+					
+					mainController.setUser(user);
+					mainController.generateElements();
+					
 				} else {
 
 					System.err.println("USUARIO NO ENCONTRADO");
@@ -148,7 +146,7 @@ public class EventAction implements ActionListener {
 
 		boolean correcto = true;
 
-		if (vistaSeleccionada.equals("Log in")) {
+		if (vistaSeleccionada.equals(TextES.getSigninStringLogin())) {
 
 			// COMPROBAR USERNAME
 			if (!Tools.comprobarUserName(login.getLoginJtextfieldUsername().getText())) {

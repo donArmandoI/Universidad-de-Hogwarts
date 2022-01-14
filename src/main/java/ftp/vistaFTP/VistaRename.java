@@ -3,7 +3,6 @@
  */
 package ftp.vistaFTP;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,16 +11,17 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import common.TextES;
-
 /**
  * @author Natalia
  *
  */
 public class VistaRename extends JFrame{
-	TextES spanish = new TextES();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3321828120533472312L;
 	JTextField renameJtextfieldName = new JTextField(15);
-	JButton renameJbuttonConfirm = new JButton(spanish.getFtpcreateStringConfirm());
+	JButton renameJbuttonConfirm = new JButton("Confirmar");
 	
 	public VistaRename() {
 		propiedades();
@@ -32,6 +32,7 @@ public class VistaRename extends JFrame{
 		add(renameJtextfieldName);
 		add(renameJbuttonConfirm);
 		this.setLayout(new FlowLayout());
+		this.setTitle("Renombrar");
 		getContentPane().setBackground(new Color(255, 253, 150));
 		this.setSize(new Dimension(320, 100));
 		this.setResizable(false);

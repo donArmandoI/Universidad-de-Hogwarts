@@ -56,8 +56,6 @@ public class VistaPrincipal extends JFrame {
 
 		add(mainJmenubarMenuBar, BorderLayout.NORTH);
 		add(mainJpanelPanel, BorderLayout.CENTER);
-
-		this.setVisible(true);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

@@ -6,13 +6,22 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+import org.apache.commons.net.ftp.FTPClient;
+
 public class WindowsAct implements WindowListener {
 
 	private DataOutputStream dataOut;
 	private Socket cli;
+	private FTPClient ftpClient;
 
 	public WindowsAct(Socket cli) {
 		this.cli = cli;
+		this.ftpClient = null;
+	}
+
+	public WindowsAct(Socket cli, FTPClient ftpClient) {
+		this.cli = cli;
+		this.ftpClient = ftpClient;
 	}
 
 	@Override
@@ -26,9 +35,13 @@ public class WindowsAct implements WindowListener {
 		try {
 			dataOut = new DataOutputStream(cli.getOutputStream());
 			dataOut.writeUTF("CERRAR");
-			
+
 			dataOut.close();
 			cli.close();
+			
+			if (ftpClient != null) {
+				ftpClient.disconnect();
+			}
 
 		} catch (IOException e1) {
 			e1.printStackTrace();

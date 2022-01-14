@@ -1,9 +1,12 @@
 package common;
 
-import common.vistaPrincipal.*;
-import ftp.vistaFTP.*;
+import java.net.Socket;
+
+import common.vistaPrincipal.VistaPrincipal;
 import correo.ControllerMail;
-import correo.vistaCorreo.*;
+import correo.vistaCorreo.VistaCorreo;
+import ftp.ControladorFTPCliente;
+import ftp.vistaFTP.VistaFTP;
 
 /**
  * @author Alvaro
@@ -14,18 +17,23 @@ public class ControllerMain {
 	private VistaPrincipal mainView;
 	private VistaFTP ftpView;
 	private VistaCorreo mailView;
-//	private ControladorFTPCliente ftpController;
-	private ControllerMail mailController;
+	private Usuario user;
+	private Socket cli;
 	
-	public ControllerMain() {
-		mainView = new VistaPrincipal();
+	public ControllerMain(Socket cli) {
+		this.cli = cli;
+		this.mainView = new VistaPrincipal();
+		mainView.addWindowListener(new WindowsAct(cli));
+	}
+
+	public void generateElements() {
 		ftpView =  new VistaFTP();
 		mailView = new VistaCorreo();
-//		mainView.setMainJpanelPanel(ftpView);
+		mainView.setMainJpanelPanel(ftpView);
+		new ControladorFTPCliente(user, cli, ftpView);
+		new ControllerMail(mailView);
 		eleccionVentana();
 		mainView.setVisible(true);
-//		ftpController = new ControladorFTPCliente(ftpView);
-		mailController = new ControllerMail(mailView);
 		
 	}
 	
@@ -33,6 +41,10 @@ public class ControllerMain {
 		mainView.getMainJmenuFTP().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
 		mainView.getMainJmenuEmail().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
 		mainView.getMainJmenuDisconnect().addMouseListener(new EventosVentanas(mainView, ftpView, mailView));
+	}
+	
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 	
 }

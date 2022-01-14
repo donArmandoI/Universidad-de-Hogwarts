@@ -65,7 +65,7 @@ public class HiloServer implements Runnable {
 				System.out.println(accion);
 				
 				switch (accion) {
-				case "Log in":
+				case "Iniciar Sesión":
 					System.out.println("ENTRA EN LOG IN");
 					String url = comprobarUsuario();
 					dataOut.writeUTF(url);
@@ -81,7 +81,7 @@ public class HiloServer implements Runnable {
 						ftpServer.listarUsuarios();
 					}
 					break;
-				case "Sign in":
+				case "Registrarse":
 					System.out.println("ENTRA EN SIGN IN");
 					dataOut.writeBoolean(crearSesion());
 					break;

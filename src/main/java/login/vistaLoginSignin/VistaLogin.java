@@ -21,6 +21,10 @@ import common.TextES;
  *
  */
 public class VistaLogin extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9153411808081435464L;
 	Box verti = Box.createVerticalBox();
 	JPanel loginJPanelUsername = new JPanel();
 	JPanel loginJPanelPassword = new JPanel();

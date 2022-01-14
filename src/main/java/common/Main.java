@@ -7,6 +7,7 @@ package common;
 import java.io.IOException;
 import java.net.Socket;
 
+import common.vistaPrincipal.VistaPrincipal;
 import login.vistaLoginSignin.VistaLogin;
 import login.vistaLoginSignin.VistaSignin;
 
@@ -18,6 +19,7 @@ public class Main {
 
 		VistaLogin login = new VistaLogin();
 		VistaSignin signin = new VistaSignin();
+		VistaPrincipal mainView = new VistaPrincipal();
 		login.setVisible(true);
 		signin.setVisible(false);
 

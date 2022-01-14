@@ -12,6 +12,10 @@ import java.awt.*;
  *
  */
 public class JpanelImagen extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -6254104319360821422L;
 	ImageIcon imagen;
 	String nombreImagen;
 
