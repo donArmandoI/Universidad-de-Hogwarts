@@ -6,23 +6,22 @@ package correo.vistaCorreo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.BevelBorder;
 
 import org.jdesktop.swingx.JXEditorPane;
 
 import common.TextES;
-import javax.swing.border.BevelBorder;
-import java.awt.FlowLayout;
 
 /**
  * @author Natalia
@@ -108,6 +107,8 @@ public class JdialogLeerCorreo extends JDialog{
 		this.getContentPane().setBackground(new Color(255, 253, 150));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		
 	}
 
 	/**

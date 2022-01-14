@@ -1,5 +1,6 @@
 package correo.vistaCorreo;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -7,8 +8,6 @@ import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
-import java.awt.Color;
 import javax.swing.border.BevelBorder;
 
 public class Header extends JPanel {
@@ -69,7 +68,7 @@ public class Header extends JPanel {
 		lblSubject.setPreferredSize(new Dimension(700, 30));
 		lblSubject.setToolTipText("Subject");
 		add(lblSubject);
-		this.setPreferredSize(this.getPreferredSize());
+		this.setPreferredSize(new Dimension(1500, 44));
 	}
 
 	public JLabel getLblDate() {

@@ -12,8 +12,8 @@ public class ControllerMail {
 	/**
 	 * Starts the view, synch thread and listener.
 	 */
-	public ControllerMail() {
-		mailView = new VistaCorreo();
+	public ControllerMail(VistaCorreo mailView) {
+		this.mailView = mailView;
 		MailContainer container = new MailContainer(mailView);
 		container.prepareConnectionProperties();
 		container.downloadMails();

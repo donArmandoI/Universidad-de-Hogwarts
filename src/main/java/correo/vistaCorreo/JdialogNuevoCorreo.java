@@ -92,7 +92,7 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJpanelText.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelText.setBackground(new Color(95, 158, 160));
 		
-		emailcreateJpanelText.add(emailcreateJtextareaText);
+//		emailcreateJpanelText.add(emailcreateJtextareaText);
 		emailcreateJpanelButtons.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelButtons.setBackground(new Color(95, 158, 160));
 		

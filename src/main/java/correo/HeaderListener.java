@@ -12,7 +12,6 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.ContentType;
 import javax.mail.internet.MimeMultipart;
-import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 
 import org.jdesktop.swingx.JXEditorPane;
@@ -47,7 +46,8 @@ public class HeaderListener implements MouseListener {
 			body.setBackground(new Color(230, 230, 250));
 			body.setBounds(100,80,20,20);
 			body.setLayout(new VerticalLayout());
-			body.setPreferredSize(new Dimension(1400, 2000));
+			body.setPreferredSize(new Dimension(1450, 2000));
+			
 			try {
 				getTextFromMessage(messages[head.getMessageNumber() - 1]);
 			} catch (IOException | MessagingException e1) {

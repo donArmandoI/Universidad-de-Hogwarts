@@ -61,11 +61,11 @@ public class VistaFTP extends JPanel {
 		ftpJtextfieldURL = new JTextField(60);
 
 		ftpJbuttonReturn = new JButton();
+		ftpJbuttonReturn.setSelectedIcon(new ImageIcon(VistaFTP.class.getResource("/ftp/vistaFTP/imagenesFTP/arrow.png")));
 		ftpJbuttonReturn.setBackground(new Color(255, 253, 150));
 		ftpJbuttonReturn.setBorder(null);
 
-		ImageIcon icono = new ImageIcon(getClass().getResource("/imagenesFTP/arrow.png"));
-		ftpJbuttonReturn.setIcon(icono);
+		ftpJbuttonReturn.setIcon(new ImageIcon(VistaFTP.class.getResource("/ftp/vistaFTP/imagenesFTP/arrow.png")));
 
 		ftpJpanelHeadline.add(ftpJbuttonUser);
 		ftpJpanelHeadline.add(ftpJtextfieldURL);

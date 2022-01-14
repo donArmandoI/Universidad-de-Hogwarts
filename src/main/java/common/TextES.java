@@ -49,7 +49,7 @@ public final class TextES {
 	private static final String ftpStringDelete = "Eliminar";
 
 	private static final String mailContainerConnectTargetFolder = "inbox";
-	private static final String mailContainerConnectPassword = "5C0rp1u5";
+	private static final String mailContainerConnectPassword = "Patata123456";
 	private static final String mailContainerConnectUserName = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
 	private static final String mailContainerPropertiesHostProperty = "mail.imap.host";
 	private static final String mailContainerPropertiesHostValue = "imap.gmail.com";

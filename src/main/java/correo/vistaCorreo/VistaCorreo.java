@@ -4,9 +4,9 @@
 package correo.vistaCorreo;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -18,7 +18,7 @@ import common.TextES;
  * @author Natalia
  *
  */
-public class VistaCorreo extends JFrame {
+public class VistaCorreo extends JPanel {
 	/**
 	 * 
 	 */
@@ -42,11 +42,14 @@ public class VistaCorreo extends JFrame {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(emailJbuttonCreate, BorderLayout.SOUTH);
-		JScrollPane scroll = new JScrollPane(board);
+		setPreferredSize(new Dimension(1520, 750));
+		setLayout(new BorderLayout());
+//		board.setPreferredSize(new Dimension(1500, 700));
+		board.setMaximumSize(new Dimension(1500, 40000));
 		board.setLayout(new VerticalLayout());
-		getContentPane().add(scroll, BorderLayout.CENTER);
+		add(emailJbuttonCreate, BorderLayout.SOUTH);
+		JScrollPane scroll = new JScrollPane(board);
+		add(scroll, BorderLayout.CENTER);
 	}
 
 	/**
