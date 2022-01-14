@@ -102,7 +102,7 @@ public class VistaSignin extends JFrame {
 
 		signinJPanelLabel.add(signinJlabelPassword);
 		signinJPanelTextfield.add(signinJPasswordfieldPassword);
-		
+
 		signinJPanelLogin.add(signinJlabelLogin);
 		signinJPanelLogin.add(signinJbuttonLogin);
 		signinJPanelSignin.add(signinJbuttonSignin);
@@ -112,25 +112,24 @@ public class VistaSignin extends JFrame {
 		// TODO Auto-generated method stub;´
 		JPanel contenido = new JPanel(new BorderLayout());
 		signinJPanelButton.setLayout(new BoxLayout(signinJPanelButton, BoxLayout.Y_AXIS));
-		
-		JpanelImagen fondo = new JpanelImagen("/imagenLogin/Hogwarts-logo-1.png");
+
+		JpanelImagen fondo = new JpanelImagen("/login/imagenLogin/Hogwarts-logo-1.png");
 		add(fondo);
-		signinJPanelLabel.setLayout(new GridLayout(0,1));
-		signinJPanelTextfield.setLayout(new GridLayout(0,1));
-		
+		signinJPanelLabel.setLayout(new GridLayout(0, 1));
+		signinJPanelTextfield.setLayout(new GridLayout(0, 1));
+
 		signinJPanelButton.add(signinJPanelSignin);
 		signinJPanelButton.add(signinJPanelLogin);
-		
-		contenido.add(signinJPanelLabel,BorderLayout.WEST);
-		contenido.add(signinJPanelTextfield,BorderLayout.CENTER);
-		
-		contenido.add(signinJPanelButton,BorderLayout.SOUTH);
+
+		contenido.add(signinJPanelLabel, BorderLayout.WEST);
+		contenido.add(signinJPanelTextfield, BorderLayout.CENTER);
+
+		contenido.add(signinJPanelButton, BorderLayout.SOUTH);
 		add(contenido);
-	
 
 		this.setTitle("Signin");
 		this.setSize(new Dimension(400, 400));
-		this.setLayout(new GridLayout(0,1));
+		this.setLayout(new GridLayout(0, 1));
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

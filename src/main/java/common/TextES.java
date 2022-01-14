@@ -47,7 +47,9 @@ public final class TextES {
 	private static final String ftpStringCreate = "crear carpeta";
 	private static final String ftpStringRename = "Renombrar";
 	private static final String ftpStringDelete = "Eliminar";
-
+	
+	private static final String loginStringInfo = "Log in";
+	
 	private static final String mailContainerConnectTargetFolder = "inbox";
 	private static final String mailContainerConnectPassword = "Patata123456";
 	private static final String mailContainerConnectUserName = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
@@ -78,8 +80,7 @@ public final class TextES {
 	private static final String signinStringPassword = "Contraseña";
 	private static final String signinStringLogin = "Iniciar Sesión";
 	private static final String signinStringSignin = "Registrarse";
-	private static String signinStringInfo;
-	private static String loginStringInfo;
+	private static final String signinStringInfo = "Sign in";
 	
 	public static String getMain_menu_login() {
 		return main_menu_login;
