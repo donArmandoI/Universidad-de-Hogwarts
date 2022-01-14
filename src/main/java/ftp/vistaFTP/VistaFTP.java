@@ -6,9 +6,12 @@ package ftp.vistaFTP;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
+import java.awt.FlowLayout;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import org.apache.commons.net.ftp.FTPFile;
 
 /**
  * @author Natalia
@@ -29,7 +33,6 @@ public class VistaFTP extends JPanel {
 	JPanel ftpJpanelContentFicheros = new JPanel();
 	ArrayList<JpanelFichero> ftpArrayListFicheros = new ArrayList<JpanelFichero>();
 
-	JList<Object> ftpJlistFilename;
 	JScrollPane scroll;
 
 	JButton ftpJbuttonUser;
@@ -42,6 +45,8 @@ public class VistaFTP extends JPanel {
 	JButton ftpJbuttonCreate;
 	JButton ftpJbuttonDelete;
 
+	private JPanel panelPrueba;
+
 	public VistaFTP() {
 		crearItems();
 		propiedades();
@@ -53,13 +58,13 @@ public class VistaFTP extends JPanel {
 		ftpJbuttonUser.setBackground(Color.white);
 
 		ftpJtextfieldURL = new JTextField(60);
+		ftpJtextfieldURL.setEditable(false);
 
 		ftpJbuttonReturn = new JButton();
 		ftpJbuttonReturn.setBackground(new Color(255, 253, 150));
-		ftpJbuttonReturn.setBorder(null);
+		// ftpJbuttonReturn.setBorder(null);
 
-		ImageIcon icono = new ImageIcon(getClass().getResource("/imagenesFTP/arrow.png"));
-		ftpJbuttonReturn.setIcon(icono);
+		ftpJbuttonReturn.setIcon(new ImageIcon("imagenesFTP/arrow.png"));
 
 		ftpJpanelHeadline.add(ftpJbuttonUser);
 		ftpJpanelHeadline.add(ftpJtextfieldURL);
@@ -87,6 +92,8 @@ public class VistaFTP extends JPanel {
 		// TODO Auto-generated method stub
 		this.setLayout(new BorderLayout());
 
+		this.setPreferredSize(new Dimension(1520, 750));
+
 		ftpJpanelHeadline.setBackground(new Color(255, 253, 150));
 
 		ftpJpanelContentFicheros.setBackground(Color.white);
@@ -94,9 +101,50 @@ public class VistaFTP extends JPanel {
 
 		ftpJpanelButtons.setBackground(new Color(255, 253, 150));
 
-		add(ftpJpanelHeadline, BorderLayout.NORTH);
-		add(scroll, BorderLayout.CENTER);
-		add(ftpJpanelButtons, BorderLayout.SOUTH);
+		panelPrueba = new JPanel();
+
+		panelPrueba.setLayout(new FlowLayout());
+
+		this.add(ftpJpanelHeadline, BorderLayout.NORTH);
+		// this.add(scroll, BorderLayout.CENTER);
+		this.add(ftpJpanelButtons, BorderLayout.SOUTH);
+	}
+
+	public void updateIconsView(FTPFile[] files) {
+
+		ftpArrayListFicheros.clear();
+
+		for (int i = 0; i < files.length; i++) {
+			addDocsIcons(files[i].getType(), files[i].getName());
+
+			System.out.println(files[i].getType() + " " + files[i].getName());
+		}
+
+		// this.remove(panelPrueba);
+
+		panelPrueba.removeAll();
+
+		for (int i = 0; i < ftpArrayListFicheros.size(); i++) {
+			panelPrueba.add(ftpArrayListFicheros.get(i));
+		}
+
+		this.add(panelPrueba, BorderLayout.CENTER);
+		this.updateUI();
+	}
+
+	private void addDocsIcons(int type, String name) {
+
+		JpanelFichero fichero;
+
+		if (type == 0) {
+			// Es archivo
+			fichero = new JpanelFichero(false, name);
+		} else {
+			// Es directorio
+			fichero = new JpanelFichero(true, name);
+		}
+
+		ftpArrayListFicheros.add(fichero);
 	}
 
 	/**

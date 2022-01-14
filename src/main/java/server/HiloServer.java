@@ -25,15 +25,15 @@ public class HiloServer implements Runnable {
 
 	private DataInputStream dataIn;
 	private DataOutputStream dataOut;
-	
+
 	private Datos data;
 	private Conexion conn;
 
-	private final String ROOTURL = "E://UNIVERSIDAD";
+	private String rootUrl;
 
 	private FTPServer ftpServer;
 
-	public HiloServer(Socket cliente, FTPServer ftpServer) {
+	public HiloServer(String rootUrl, Socket cliente, FTPServer ftpServer) {
 		h = new Thread(this);
 		this.cliente = cliente;
 		data = new Datos("universidadhogwarts");
@@ -42,6 +42,8 @@ public class HiloServer implements Runnable {
 				data.getPass_JDBC());
 
 		this.ftpServer = ftpServer;
+
+		this.rootUrl = rootUrl;
 
 		try {
 			dataIn = new DataInputStream(cliente.getInputStream());
@@ -63,7 +65,7 @@ public class HiloServer implements Runnable {
 
 				System.out.println("LEIDO");
 				System.out.println(accion);
-				
+
 				switch (accion) {
 				case "Log in":
 					System.out.println("ENTRA EN LOG IN");
@@ -74,7 +76,7 @@ public class HiloServer implements Runnable {
 						String userName = dataIn.readUTF();
 						String password = dataIn.readUTF();
 
-						ftpServer.iniciarUsuario(userName, password, ROOTURL + url);
+						ftpServer.iniciarUsuario(userName, password, rootUrl + url);
 
 						enviarDatosUsuario(userName);
 
@@ -161,7 +163,7 @@ public class HiloServer implements Runnable {
 
 				System.out.println("El numero de filas añadidas son: " + filas);
 
-				File f = new File(ROOTURL + url);
+				File f = new File(rootUrl + url);
 				System.out.println(f.getPath());
 				if (!f.exists()) {
 					System.out.println("SE HA CREADO LA CARPETA");

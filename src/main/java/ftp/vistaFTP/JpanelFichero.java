@@ -3,63 +3,64 @@
  */
 package ftp.vistaFTP;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.io.File;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+
+import ftp.ActionSelected;
 
 /**
  * @author Natalia
  *
  */
 public class JpanelFichero extends JPanel {
-	JLabel contentJlabelImagenFile = new JLabel();
+	JButton contentJbuttonImagenFile = new JButton();
 	JLabel contentJlabelFile = new JLabel();
-	
+
 	public JpanelFichero(boolean directorio, String name) {
-		tipoFichero(directorio,name);
+		tipoFichero(directorio, name);
 		propiedades();
 	}
 
-	public void tipoFichero(boolean directorio, String name) {
-		// TODO Auto-generated method stub
-		ImageIcon icono;
+	private void tipoFichero(boolean directorio, String name) {
+
 		if (directorio) {
-			icono = new ImageIcon(getClass().getResource("/imagenesFTP/carpetita.png"));
-			contentJlabelImagenFile.setIcon(icono);
-			contentJlabelFile.setText(name);
+
+			contentJbuttonImagenFile.setIcon(new ImageIcon("imagenesFTP/carpetita.png"));
+
 		} else {
-			icono = new ImageIcon(getClass().getResource("/imagenesFTP/doc.png"));
-			contentJlabelImagenFile.setIcon(icono);
-			contentJlabelFile.setText(name);
+
+			contentJbuttonImagenFile.setIcon(new ImageIcon("imagenesFTP/doc.png"));
 		}
 
+		contentJlabelFile.setText(name);
+
+		this.remove(contentJbuttonImagenFile);
+		this.remove(contentJlabelFile);
 	}
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		add(contentJlabelImagenFile);
+		this.add(contentJbuttonImagenFile);
 		contentJlabelFile.setForeground(Color.BLACK);
-		add(contentJlabelFile);
+		this.add(contentJlabelFile);
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.setBackground(new Color(209, 242, 235));
-		this.setLayout(new FlowLayout());
+		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setVisible(true);
 	}
 
 	/**
 	 * @return the contentJlabelImagenFile
 	 */
-	public JLabel getContentJlabelImagenFile() {
-		return contentJlabelImagenFile;
+	public JButton getContentJbuttonImagenFile() {
+		return contentJbuttonImagenFile;
 	}
 
 	/**
@@ -68,5 +69,5 @@ public class JpanelFichero extends JPanel {
 	public JLabel getContentJlabelFile() {
 		return contentJlabelFile;
 	}
-	
+
 }

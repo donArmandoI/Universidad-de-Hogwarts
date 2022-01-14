@@ -19,16 +19,16 @@ public class VistaCreate extends JFrame{
 	JTextField createJtextfieldName = new JTextField(15);
 	JButton createJbuttonConfirm = new JButton("Confirmar");
 	
-	public VistaCreate() {
-		propiedades();
+	public VistaCreate(String nombre) {
+		propiedades(nombre);
 	}
 	
-	private void propiedades() {
+	private void propiedades(String nombre) {
 		// TODO Auto-generated method stub
 		add(createJtextfieldName);
 		add(createJbuttonConfirm);
 		this.setLayout(new FlowLayout());
-		this.setTitle("Crear");
+		this.setTitle(nombre);
 		getContentPane().setBackground(new Color(255, 253, 150));
 		this.setSize(new Dimension(320, 100));
 		this.setResizable(false);
@@ -40,6 +40,10 @@ public class VistaCreate extends JFrame{
 	 */
 	public JTextField getCreateJtextfieldName() {
 		return createJtextfieldName;
+	}
+
+	public JButton getCreateJbuttonConfirm() {
+		return createJbuttonConfirm;
 	}
 	
 }

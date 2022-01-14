@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.border.LineBorder;
 
+import ftp.ControladorFTPCliente;
 import login.vistaLoginSignin.VistaLogin;
 import login.vistaLoginSignin.VistaSignin;
 
@@ -31,6 +32,7 @@ public class EventAction implements ActionListener {
 	private DataInputStream dataIn;
 
 	private Usuario user;
+	
 
 	public EventAction(VistaLogin login, VistaSignin signin, Socket cli) {
 
@@ -132,6 +134,8 @@ public class EventAction implements ActionListener {
 					System.out.println(
 							user.getUserName() + " " + user.getName() + " " + user.getSurName() + " " + user.isTeacher()
 									+ " " + user.getEmail() + " " + user.getPassword() + " " + user.getUrl());
+					
+					new ControladorFTPCliente(user, cli);
 
 				} else {
 

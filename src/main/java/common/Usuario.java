@@ -11,6 +11,9 @@ public class Usuario implements Serializable {
 	private String email;
 	private String password;
 	private String url;
+	
+	private String urlActual;
+	private String selectedElement;
 
 	public Usuario(String userName, String name, String surName, boolean teacher, String email, String password,
 			String url) {
@@ -49,6 +52,22 @@ public class Usuario implements Serializable {
 
 	public String getUrl() {
 		return url;
+	}
+
+	public String getUrlActual() {
+		return urlActual;
+	}
+
+	public void setUrlActual(String urlActual) {
+		this.urlActual = urlActual;
+	}
+
+	public String getSelectedElement() {
+		return selectedElement;
+	}
+
+	public void setSelectedElement(String selectedElement) {
+		this.selectedElement = selectedElement;
 	}
 
 }

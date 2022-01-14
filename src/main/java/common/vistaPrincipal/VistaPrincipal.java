@@ -12,6 +12,7 @@ import java.awt.GridLayout;
 import javax.swing.*;
 
 import common.TextES;
+import ftp.vistaFTP.VistaFTP;
 
 /**
  * @author Natalia
@@ -31,9 +32,9 @@ public class VistaPrincipal extends JFrame {
 	private void crearItems() {
 		// TODO Auto-generated method stub
 		mainJmenubarMenuBar = new JMenuBar();
-		mainJmenuFTP = new JMenu(spanish.getMainStringFTP());
-		mainJmenuEmail = new JMenu(spanish.getMainStringCorreo());
-		mainJmenuDisconnect = new JMenu(spanish.getMainStringDisconnect());
+		mainJmenuFTP = new JMenu("FTP");
+		mainJmenuEmail = new JMenu("CORREO");
+		mainJmenuDisconnect = new JMenu("DESCONECTAR");
 		mainJmenubarMenuBar.add(mainJmenuFTP);
 		mainJmenubarMenuBar.add(mainJmenuEmail);
 		mainJmenubarMenuBar.add(mainJmenuDisconnect);
@@ -41,14 +42,26 @@ public class VistaPrincipal extends JFrame {
 
 	private void propiedades() {
 		// TODO Auto-generated method stub
-		this.setTitle(spanish.getMainStringTitle());
+		this.setTitle("HOGWARTS");
 		this.setSize(new Dimension(860, 680));
 		this.setLayout(new BorderLayout());
-
-		add(mainJmenubarMenuBar, BorderLayout.NORTH);
-		add(mainJpanelPanel, BorderLayout.CENTER);
+		
+		this.add(mainJmenubarMenuBar, BorderLayout.NORTH);
+		this.add(mainJpanelPanel, BorderLayout.CENTER);
 
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+
+	public JPanel getMainJpanelPanel() {
+		return mainJpanelPanel;
+	}
+
+	public void setMainJpanelPanel(JPanel vista) {
+		this.remove(mainJpanelPanel);
+		this.mainJpanelPanel = vista;
+		this.add(mainJpanelPanel, BorderLayout.CENTER);
+		this.repaint();
+	}
+
 }

@@ -25,15 +25,20 @@ public class FTPServer {
 	private ListenerFactory listenerFactory;
 	private BaseUser user;
 
-	public FTPServer() {
+	private String rootUrl = "";
+
+	public FTPServer(String rootUrl) {
 		this.serverFactory = new FtpServerFactory();
 		this.listenerFactory = new ListenerFactory();
 		this.listenerFactory.setServerAddress(HOST);
 		this.listenerFactory.setPort(PORT);
 
+		this.rootUrl = rootUrl;
+
 		serverFactory.addListener("default", listenerFactory.createListener());
 
 		ftpServ = serverFactory.createServer();
+
 		try {
 			ftpServ.start();
 
@@ -50,7 +55,7 @@ public class FTPServer {
 					cliente = new Socket();
 					cliente = server.accept();
 
-					hiloServ = new Thread(new HiloServer(cliente, this));
+					hiloServ = new Thread(new HiloServer(rootUrl, cliente, this));
 					hiloServ.start();
 				}
 			} catch (IOException e) {
