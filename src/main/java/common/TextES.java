@@ -26,8 +26,6 @@ public final class TextES {
 	private static final int buttonNewMailSendListenerProtocolPortValue = 587;
 	private static final String buttonNewMailSendListenerSMTPAuthProperty = "mail.smtp.auth";
 	private static final String buttonNewMailSendListenerSMTPAuthValue = "false";
-	private static final String buttonNewMailSendListenerSMTPUsername = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
-	private static final String buttonNewMailSendListenerSMTPPassword = "5C0rp1u5";
 	private static final String buttonNewMailSendListenerStartTLSProperty = "mail.smtp.starttls.enable";
 	private static final String buttonNewMailSendListenerStartTLSValue = "true";
 	private static final String buttonNewMailSendListenerTo = "info@universidadhogwarts.com";
@@ -51,8 +49,6 @@ public final class TextES {
 	private static final String loginStringInfo = "Log in";
 	
 	private static final String mailContainerConnectTargetFolder = "inbox";
-	private static final String mailContainerConnectPassword = "Patata123456";
-	private static final String mailContainerConnectUserName = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
 	private static final String mailContainerPropertiesHostProperty = "mail.imap.host";
 	private static final String mailContainerPropertiesHostValue = "imap.gmail.com";
 	private static final String mailContainerPropertiesPortProperty = "mail.imap.port";
@@ -133,12 +129,6 @@ public final class TextES {
 	public static String getButtonnewmailsendlistenersmtpauthvalue() {
 		return buttonNewMailSendListenerSMTPAuthValue;
 	}
-	public static String getButtonnewmailsendlistenersmtpusername() {
-		return buttonNewMailSendListenerSMTPUsername;
-	}
-	public static String getButtonnewmailsendlistenersmtppassword() {
-		return buttonNewMailSendListenerSMTPPassword;
-	}
 	public static String getButtonnewmailsendlistenerstarttlsproperty() {
 		return buttonNewMailSendListenerStartTLSProperty;
 	}
@@ -192,12 +182,6 @@ public final class TextES {
 	}
 	public static String getMailContainerConnectTargetFolder() {
 		return mailContainerConnectTargetFolder;
-	}
-	public static String getMailContainerConnectPassword() {
-		return mailContainerConnectPassword;
-	}
-	public static String getMailContainerConnectUserName() {
-		return mailContainerConnectUserName;
 	}
 	public static String getMailContainerPropertiesHostProperty() {
 		return mailContainerPropertiesHostProperty;

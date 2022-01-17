@@ -1,5 +1,6 @@
 package correo;
 
+import common.Usuario;
 import correo.vistaCorreo.VistaCorreo;
 
 /**
@@ -11,16 +12,17 @@ public class ControllerMail {
 
 	/**
 	 * Starts the view, synch thread and listener.
+	 * @param user 
 	 */
-	public ControllerMail(VistaCorreo mailView) {
+	public ControllerMail(VistaCorreo mailView, Usuario user) {
 		this.mailView = mailView;
 		MailContainer container = new MailContainer(mailView);
 		container.prepareConnectionProperties();
-		container.downloadMails();
+		container.downloadMails(user.getEmail(), user.getPassword());
 		SynchThread synch = new SynchThread(container);
 		synch.start();
 		container.readMails();
-		mailView.getEmailJbuttonCreate().addActionListener(new NewMailButtonListener());
+		mailView.getEmailJbuttonCreate().addActionListener(new NewMailButtonListener(user));
 		mailView.setVisible(true);
 	}
 

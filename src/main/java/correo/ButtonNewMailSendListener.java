@@ -17,14 +17,17 @@ import javax.swing.JOptionPane;
 import com.sun.mail.smtp.SMTPTransport;
 
 import common.TextES;
+import common.Usuario;
 import correo.vistaCorreo.JdialogNuevoCorreo;
 
 public class ButtonNewMailSendListener implements ActionListener {
 	JdialogNuevoCorreo newMailView;
-
-	public ButtonNewMailSendListener(JdialogNuevoCorreo newMailView) {
+	private Usuario user;
+	
+	public ButtonNewMailSendListener(JdialogNuevoCorreo newMailView, Usuario user) {
 		// TODO Auto-generated constructor stub
 		this.newMailView = newMailView;
+		this.user =  user;
 	}
 
 	@Override
@@ -49,8 +52,8 @@ public class ButtonNewMailSendListener implements ActionListener {
 
 				// Connect to Gmail using the SMTP username and password you specified above.
 				transport.connect(TextES.getButtonnewmailsendlistenerhost(),
-						TextES.getButtonnewmailsendlistenersmtpusername(),
-						TextES.getButtonnewmailsendlistenersmtppassword());
+						user.getEmail(),
+						user.getPassword());
 
 				// Send the email.
 				transport.sendMessage(message, message.getAllRecipients());

@@ -46,6 +46,8 @@ public class MailContainer {
 
 	/**
 	 * Configure the properties of the IMAP connection session.
+	 * @param password 
+	 * @param userName 
 	 */
 	public void prepareConnectionProperties() {
 		props.setProperty(TextES.getMailContainerPropertiesProtocolProperty(),
@@ -65,11 +67,11 @@ public class MailContainer {
 	/**
 	 * Establish the connection, create the store and download the selected folder, then activates the listener for new messages and call the message conversion.
 	 */
-	public synchronized void downloadMails() {
+	public synchronized void downloadMails(String userName, String password) {
 		session = Session.getInstance(props);
 		try {
 			store = session.getStore();
-			store.connect(TextES.getMailContainerConnectUserName(), TextES.getMailContainerConnectPassword());
+			store.connect(userName, password);
 			inbox = store.getFolder(TextES.getMailContainerConnectTargetFolder());
 			inbox.open(Folder.READ_ONLY);
 			inbox.addMessageCountListener(new MessageCountAdapter() {
