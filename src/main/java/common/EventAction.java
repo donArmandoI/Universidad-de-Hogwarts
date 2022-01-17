@@ -21,8 +21,8 @@ public class EventAction implements ActionListener {
 
 	private VistaLogin login;
 	private VistaSignin signin;
-
-	private ControllerMain mainController;
+	private Socket cli;
+//	private ControllerMain mainController;
 
 	private DataOutputStream dataOut;
 	private DataInputStream dataIn;
@@ -33,7 +33,8 @@ public class EventAction implements ActionListener {
 
 		this.login = login;
 		this.signin = signin;
-		this.mainController = new ControllerMain(cli);
+		this.cli = cli;
+//		this.mainController = new ControllerMain(cli);
 		try {
 
 			dataOut = new DataOutputStream(cli.getOutputStream());
@@ -128,8 +129,7 @@ public class EventAction implements ActionListener {
 							user.getUserName() + " " + user.getName() + " " + user.getSurName() + " " + user.isTeacher()
 									+ " " + user.getEmail() + " " + user.getPassword() + " " + user.getUrl());
 					
-					mainController.setUser(user);
-					mainController.generateElements();
+					new ControllerMain(cli, user);
 					
 				} else {
 

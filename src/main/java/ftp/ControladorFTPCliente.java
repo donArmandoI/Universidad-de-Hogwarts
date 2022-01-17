@@ -41,14 +41,15 @@ public class ControladorFTPCliente {
 
 				win = new WindowsAct(cli, ftpClient);
 
-				vistaFTP = new VistaFTP();
+//				vistaFTP = new VistaFTP();
 
 				vistaFTP.getFtpJbuttonUser().setText(user.getName());
 				vistaFTP.getFtpJtextfieldURL().setText(user.getUrl());
 
+				user.setUrlActual(ftpClient.printWorkingDirectory());
+				
 				vistaFTP.setVisible(true);
 
-				user.setUrlActual(ftpClient.printWorkingDirectory());
 
 				try {
 					vistaFTP.updateIconsView(ftpClient.listFiles(user.getUrlActual()));

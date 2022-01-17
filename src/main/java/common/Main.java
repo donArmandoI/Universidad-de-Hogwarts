@@ -19,7 +19,7 @@ public class Main {
 
 		VistaLogin login = new VistaLogin();
 		VistaSignin signin = new VistaSignin();
-		VistaPrincipal mainView = new VistaPrincipal();
+//		VistaPrincipal mainView = new VistaPrincipal();
 		login.setVisible(true);
 		signin.setVisible(false);
 

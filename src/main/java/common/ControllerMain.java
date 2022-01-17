@@ -20,10 +20,12 @@ public class ControllerMain {
 	private Usuario user;
 	private Socket cli;
 	
-	public ControllerMain(Socket cli) {
+	public ControllerMain(Socket cli, Usuario user) {
 		this.cli = cli;
+		this.user =  user;
 		this.mainView = new VistaPrincipal();
 		mainView.addWindowListener(new WindowsAct(cli));
+		generateElements();
 	}
 
 	public void generateElements() {
