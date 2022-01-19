@@ -61,9 +61,9 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJtextfieldUser = new JTextField(70);
 		emailcreateJtextfieldUser.setBackground(new Color(230, 230, 250));
 		
-//		emailcreateJtextareaText = new JTextArea(30,80);
-//		emailcreateJtextareaText.setBackground(new Color(230, 230, 250));
-//		emailcreateJtextareaText.setBounds(100,80,20,20);
+		emailcreateJtextareaText = new JTextArea(30,80);
+		emailcreateJtextareaText.setBackground(new Color(230, 230, 250));
+		emailcreateJtextareaText.setBounds(100,80,20,20);
 		
 		emailcreateJButtonSend = new JButton(TextES.getEmailStringSend());
 		emailcreateJbuttonCancel = new JButton(TextES.getEmailStringCancel());
@@ -92,7 +92,7 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJpanelText.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelText.setBackground(new Color(95, 158, 160));
 		
-//		emailcreateJpanelText.add(emailcreateJtextareaText);
+		emailcreateJpanelText.add(emailcreateJtextareaText);
 		emailcreateJpanelButtons.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelButtons.setBackground(new Color(95, 158, 160));
 		

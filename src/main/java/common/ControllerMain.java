@@ -29,9 +29,9 @@ public class ControllerMain {
 	public void generateElements() {
 		ftpView =  new VistaFTP();
 		mailView = new VistaCorreo();
-		mainView.setMainJpanelPanel(ftpView);
+		mainView.setMainJpanelPanel(mailView);
 		new ControladorFTPCliente(user, cli, ftpView);
-		new ControllerMail(mailView);
+		new ControllerMail(mailView, user);
 		eleccionVentana();
 		mainView.setVisible(true);
 		

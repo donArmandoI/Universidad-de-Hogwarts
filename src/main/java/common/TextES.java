@@ -27,7 +27,7 @@ public final class TextES {
 	private static final String buttonNewMailSendListenerSMTPAuthProperty = "mail.smtp.auth";
 	private static final String buttonNewMailSendListenerSMTPAuthValue = "false";
 	private static final String buttonNewMailSendListenerSMTPUsername = "ialonsocalzado.sanjose@alumnado.fundacionloyola.net";
-	private static final String buttonNewMailSendListenerSMTPPassword = "5C0rp1u5";
+	private static final String buttonNewMailSendListenerSMTPPassword = "Patata123456";
 	private static final String buttonNewMailSendListenerStartTLSProperty = "mail.smtp.starttls.enable";
 	private static final String buttonNewMailSendListenerStartTLSValue = "true";
 	private static final String buttonNewMailSendListenerTo = "info@universidadhogwarts.com";

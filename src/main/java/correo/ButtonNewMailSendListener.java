@@ -17,14 +17,17 @@ import javax.swing.JOptionPane;
 import com.sun.mail.smtp.SMTPTransport;
 
 import common.TextES;
+import common.Usuario;
 import correo.vistaCorreo.JdialogNuevoCorreo;
 
 public class ButtonNewMailSendListener implements ActionListener {
 	JdialogNuevoCorreo newMailView;
-
-	public ButtonNewMailSendListener(JdialogNuevoCorreo newMailView) {
+	private Usuario user;
+	
+	public ButtonNewMailSendListener(JdialogNuevoCorreo newMailView, Usuario user) {
 		// TODO Auto-generated constructor stub
 		this.newMailView = newMailView;
+		this.user = user;
 	}
 
 	@Override
@@ -49,8 +52,7 @@ public class ButtonNewMailSendListener implements ActionListener {
 
 				// Connect to Gmail using the SMTP username and password you specified above.
 				transport.connect(TextES.getButtonnewmailsendlistenerhost(),
-						TextES.getButtonnewmailsendlistenersmtpusername(),
-						TextES.getButtonnewmailsendlistenersmtppassword());
+						user.getEmail(), user.getPassword());
 
 				// Send the email.
 				transport.sendMessage(message, message.getAllRecipients());
@@ -85,8 +87,8 @@ public class ButtonNewMailSendListener implements ActionListener {
 	private MimeMessage createMessage(InternetAddress target, Session session)
 			throws MessagingException, UnsupportedEncodingException {
 		MimeMessage message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(TextES.getButtonnewmailsendlistenerfrom(),
-				TextES.getButtonnewmailsendlistenerfromname()));
+		message.setFrom(new InternetAddress(user.getEmail(),
+				user.getName()));
 		message.setRecipient(Message.RecipientType.TO, target);
 		message.setSubject(newMailView.getEmailcreateJtextfieldSubject().getText());
 		message.setText(newMailView.getEmailcreateJtextareaText().getText(),
