@@ -93,7 +93,7 @@ public class ActionFTPButtons implements ActionListener {
 
 					String name = obtenerName();
 
-					File f = new File(fileChooser.getCurrentDirectory() + File.separator + name);
+					File f = new File(fileChooser.getSelectedFile().getAbsolutePath() + File.separator + name);
 					try {
 
 						FileOutputStream out = new FileOutputStream(f);

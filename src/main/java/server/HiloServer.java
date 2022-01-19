@@ -199,6 +199,13 @@ public class HiloServer implements Runnable {
 
 			if (conn.getRs().next()) {
 
+				File f = new File(rootUrl + conn.getRs().getString(1));
+				System.out.println(f.getPath());
+				if (!f.exists()) {
+					System.out.println("SE HA CREADO LA CARPETA");
+					f.mkdir();
+				}
+
 				return conn.getRs().getString(1);
 
 			} else {
