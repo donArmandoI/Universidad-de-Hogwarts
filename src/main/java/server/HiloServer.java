@@ -29,7 +29,7 @@ public class HiloServer implements Runnable {
 	private Datos data;
 	private Conexion conn;
 
-	private final String ROOTURL = "E://UNIVERSIDAD";
+	private final String ROOTURL = "D://UNIVERSIDAD";
 
 	private FTPServer ftpServer;
 
