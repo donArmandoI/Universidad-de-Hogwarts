@@ -49,7 +49,7 @@ public class ActionFTPButtons implements ActionListener {
 		} else if (b == vistaFTP.getFtpJbuttonDelete()) {
 			// ELIMINAR ARCHIVO
 
-			if (!user.getSelectedElement().equals("") && user.getSelectedElement() != null) {
+			if (!user.getSelectedElement().equals("") && !user.getSelectedElement().equals(null)) {
 
 				try {
 
@@ -61,6 +61,9 @@ public class ActionFTPButtons implements ActionListener {
 						vistaFTP.updateIconsView(ftpClient.listFiles(user.getUrlActual()));
 						user.setSelectedElement("");
 					} else {
+						System.out.println("NO ES UN ARCHIVO");
+
+						// eliminarRecursivo(user.getSelectedElement(), "");
 
 						done = ftpClient.removeDirectory(user.getSelectedElement());
 
@@ -70,12 +73,18 @@ public class ActionFTPButtons implements ActionListener {
 							user.setSelectedElement("");
 						} else {
 							System.err.println("NO SE HA ELIMINADO EL ARCHIVO.");
+							user.setSelectedElement("");
 						}
 					}
+
+					vistaFTP.updateIconsView(ftpClient.listFiles(user.getUrlActual()));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 
+			} else {
+				System.err.println("ERROR AL BORRAR");
+				user.setSelectedElement("");
 			}
 
 		} else if (b == vistaFTP.getFtpJbuttonDownload()) {
@@ -203,6 +212,62 @@ public class ActionFTPButtons implements ActionListener {
 		addDirectoryListeners();
 	}
 
+	private void eliminarRecursivo(String dirActual, String nombreSeleccionado) {
+
+		String dirToList = dirActual;
+		if (!nombreSeleccionado.equals("")) {
+			dirToList += "/" + nombreSeleccionado;
+		}
+
+		FTPFile[] subFiles;
+		try {
+			subFiles = ftpClient.listFiles(dirToList);
+
+			if (subFiles != null && subFiles.length > 0) {
+				for (FTPFile aFile : subFiles) {
+					String currentFileName = aFile.getName();
+					if (currentFileName.equals(".") || currentFileName.equals("..")) {
+						// skip parent directory and the directory itself
+						continue;
+					}
+					String filePath = dirActual + "/" + nombreSeleccionado + "/" + currentFileName;
+					if (nombreSeleccionado.equals("")) {
+						filePath = dirActual + "/" + currentFileName;
+					}
+
+					if (aFile.isDirectory()) {
+						// remove the sub directory
+						eliminarRecursivo(filePath, currentFileName);
+					} else {
+						// delete the file
+						boolean deleted = false;
+						try {
+							deleted = ftpClient.deleteFile(filePath);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						if (deleted) {
+							System.out.println("DELETED the file: " + filePath);
+						} else {
+							System.out.println("CANNOT delete the file: " + filePath);
+						}
+					}
+				}
+
+				// finally, remove the directory itself
+				boolean removed = ftpClient.removeDirectory(dirToList);
+				if (removed) {
+					System.out.println("REMOVED the directory: " + dirToList);
+				} else {
+					System.out.println("CANNOT remove the directory: " + dirToList);
+				}
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+
 	private String obtenerName() {
 		String name = "";
 
@@ -216,6 +281,9 @@ public class ActionFTPButtons implements ActionListener {
 	private void addDirectoryListeners() {
 
 		for (int i = 0; i < vistaFTP.getFtpArrayListFicheros().size(); i++) {
+
+			System.out.println(
+					"*****EVENTO A " + vistaFTP.getFtpArrayListFicheros().get(i).getContentJlabelFile().getText());
 
 			vistaFTP.getFtpArrayListFicheros().get(i).getContentJbuttonImagenFile()
 					.addMouseListener(new ActionSelected(vistaFTP, user, ftpClient));

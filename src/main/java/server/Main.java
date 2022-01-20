@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		String rootUrl = "C://UNIVERSIDAD";
+		String rootUrl = "D://UNIVERSIDAD";
 
 		File f = new File(rootUrl);
 		File f2 = new File(rootUrl + File.separator + "alumnos");

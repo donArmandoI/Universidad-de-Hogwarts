@@ -31,7 +31,7 @@ public class ActionSelected implements MouseListener {
 		String name = comprobarBoton(e);
 
 		if (e.getClickCount() == 1) {
-			
+
 			user.setSelectedElement(user.getUrlActual() + "/" + name);
 
 		} else if (e.getClickCount() == 2) {
@@ -48,6 +48,7 @@ public class ActionSelected implements MouseListener {
 							user.setSelectedElement("");
 
 							vistaFtp.updateIconsView(ftpClient.listFiles(user.getUrlActual()));
+							addDirectoryListeners();
 						}
 					}
 				}
@@ -74,6 +75,18 @@ public class ActionSelected implements MouseListener {
 		}
 
 		return "";
+	}
+
+	private void addDirectoryListeners() {
+
+		for (int i = 0; i < vistaFtp.getFtpArrayListFicheros().size(); i++) {
+
+			System.out.println(
+					"*****EVENTO A " + vistaFtp.getFtpArrayListFicheros().get(i).getContentJlabelFile().getText());
+
+			vistaFtp.getFtpArrayListFicheros().get(i).getContentJbuttonImagenFile()
+					.addMouseListener(new ActionSelected(vistaFtp, user, ftpClient));
+		}
 	}
 
 	@Override
