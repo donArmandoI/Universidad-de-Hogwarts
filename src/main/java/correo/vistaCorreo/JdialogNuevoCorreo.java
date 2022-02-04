@@ -6,6 +6,7 @@ package correo.vistaCorreo;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -15,12 +16,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.BevelBorder;
 
 import common.TextES;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
-import javax.swing.border.BevelBorder;
-import java.awt.Rectangle;
 
 /**
  * @author Natalia
@@ -61,9 +60,9 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJtextfieldUser = new JTextField(70);
 		emailcreateJtextfieldUser.setBackground(new Color(230, 230, 250));
 		
-//		emailcreateJtextareaText = new JTextArea(30,80);
-//		emailcreateJtextareaText.setBackground(new Color(230, 230, 250));
-//		emailcreateJtextareaText.setBounds(100,80,20,20);
+		emailcreateJtextareaText = new JTextArea(30,80);
+		emailcreateJtextareaText.setBackground(new Color(230, 230, 250));
+		emailcreateJtextareaText.setBounds(100,80,20,20);
 		
 		emailcreateJButtonSend = new JButton(TextES.getEmailStringSend());
 		emailcreateJbuttonCancel = new JButton(TextES.getEmailStringCancel());
@@ -92,7 +91,7 @@ public class JdialogNuevoCorreo extends JDialog{
 		emailcreateJpanelText.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelText.setBackground(new Color(95, 158, 160));
 		
-//		emailcreateJpanelText.add(emailcreateJtextareaText);
+		emailcreateJpanelText.add(emailcreateJtextareaText);
 		emailcreateJpanelButtons.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		emailcreateJpanelButtons.setBackground(new Color(95, 158, 160));
 		
